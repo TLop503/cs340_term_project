@@ -1,3 +1,7 @@
+SET FOREIGN_KEY_CHECKS=0;
+SET AUTOCOMMIT = 0;
+
+
 --- Drop Existing Tables if They Exist
 DROP TABLE IF EXISTS Authors, Genres, Books, Patrons, Checkouts, Book_Genres;
 
@@ -167,3 +171,6 @@ SELECT * FROM Books LIMIT 5;
 SELECT * FROM Patrons LIMIT 5;
 SELECT * FROM Checkouts LIMIT 5;
 SELECT * FROM Book_Genres LIMIT 5;
+
+SET FOREIGN_KEY_CHECKS=1;
+COMMIT;
