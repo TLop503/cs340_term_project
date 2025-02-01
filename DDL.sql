@@ -75,7 +75,8 @@ INSERT INTO Authors (first_name, last_name, biography) VALUES
 ('Frank', 'Herbert', 'An American author known for his science fiction novels.'),
 ('Franz', 'Kafka', 'A Czech author known for his surreal and often existential novels.'),
 ('Kenji', 'J-Lopez Alt.', 'An American author known for his food science books.'),
-('Bob', 'Jones', 'Local No Name CO (aspiring) author');
+('Bob', 'Jones', 'Local No Name CO (aspiring) author'),
+('Mark Z.', 'Danielowski', 'An American author known for his ergodic lit and nested frame stories');
 
 --- Example Data for Genres
 INSERT INTO Genres (genre_name) VALUES
@@ -113,7 +114,8 @@ INSERT INTO Books (title, author_ID, synopsis, audience, language, format, publi
 ('White Noise', 11, 'A postmodern novel about a toxic cloud', 'Adult', 'English', 'Paperback', '1985-01-01'),
 ('Dune', 12, 'A science fiction novel about worms', 'Adult', 'English', 'Paperback', '1965-06-01'),
 ('The Metamorphosis', 13, 'A surreal novel about isolation and transformation', 'Adult', 'English', 'Paperback', '1915-10-15'),
-('The Food Lab', 14, 'A food science book about cooking', 'Adult', 'English', 'Hardcover', '2015-09-21');
+('The Food Lab', 14, 'A food science book about cooking', 'Adult', 'English', 'Hardcover', '2015-09-21'),
+('House of Leaves', 15, 'An egrodic novel about a house that is bigger on the inside', 'Adult', 'English', 'Paperback', '2000-03-07');
 
 --- Example Data for Patrons
 INSERT INTO Patrons (first_name, last_name, date_of_birth, email, phone_number) VALUES
