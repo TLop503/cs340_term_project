@@ -61,6 +61,7 @@ CREATE OR REPLACE TABLE Book_Genres (
 
 --- Example Data for Authors
 INSERT INTO Authors (first_name, last_name, biography) VALUES
+('Bob', 'Jones', 'Local No Name CO (aspiring) author'),
 ('Kurt', 'Vonnegut', 'An American author known for his satirical and darkly humorous novels.'),
 ('David', 'Foster Wallace', 'An American author known for his complex and often postmodern novels.'),
 ('J.R.R.', 'Tolkien', 'An English author known for his high fantasy novels.'),
@@ -75,7 +76,6 @@ INSERT INTO Authors (first_name, last_name, biography) VALUES
 ('Frank', 'Herbert', 'An American author known for his science fiction novels.'),
 ('Franz', 'Kafka', 'A Czech author known for his surreal and often existential novels.'),
 ('Kenji', 'J-Lopez Alt.', 'An American author known for his food science books.'),
-('Bob', 'Jones', 'Local No Name CO (aspiring) author'),
 ('Mark Z.', 'Danielowski', 'An American author known for his ergodic lit and nested frame stories');
 
 --- Example Data for Genres
@@ -153,12 +153,12 @@ INSERT INTO Book_Genres (book_ID, genre_ID) VALUES
 
 --- a few checkouts
 INSERT INTO Checkouts (book_ID, patron_ID, checkout_date, due_date, is_returned) VALUES
+(4, 1, '2025-01-01', '2025-01-07', 1),
 (1, 1, '2025-02-01', '2025-02-15', 0),
 (3, 3, '2025-02-03', '2025-02-17', 0),
 (4, 4, '2025-02-04', '2025-02-18', 0),
 (8, 4, '2025-02-04', '2025-02-18', 0),
-(2, 4, '2025-02-04', '2025-02-18', 0),
-(4, 1, '2025-01-01', '2025-01-07', 1);
+(2, 4, '2025-02-04', '2025-02-18', 0);
 
 --- Show our work!
 SELECT * FROM Authors LIMIT 5;
