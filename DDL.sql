@@ -22,7 +22,7 @@ CREATE OR REPLACE TABLE Books (
     language VARCHAR(255) NOT NULL,
     format ENUM('Hardcover', 'Paperback', 'Ebook', 'Audio', 'Large Print'),
     publishing_date DATE,
-    FOREIGN KEY (author_ID) REFERENCES Authors(author_ID)
+    FOREIGN KEY (author_ID) REFERENCES Authors(author_ID) ON DELETE RESTRICT
 );
 
 --- Create Patrons Table
@@ -43,8 +43,8 @@ CREATE OR REPLACE TABLE Checkouts (
     checkout_date DATE NOT NULL,
     due_date DATE NOT NULL,
     is_returned BOOLEAN NOT NULL DEFAULT FALSE,
-    FOREIGN KEY (book_ID) REFERENCES Books(book_ID),
-    FOREIGN KEY (patron_ID) REFERENCES Patrons(patron_ID)
+    FOREIGN KEY (book_ID) REFERENCES Books(book_ID) ON DELETE SET DEFAULT -1,
+    FOREIGN KEY (patron_ID) REFERENCES Patrons(patron_ID) ON DELETE SET DEFAULT -1
 );
 
 --- Create Book_Genres Table (intersection)
@@ -52,6 +52,6 @@ CREATE OR REPLACE TABLE Book_Genres (
     book_genre_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     book_ID INT NOT NULL,
     genre_ID INT NOT NULL,
-    FOREIGN KEY (book_ID) REFERENCES Books(book_ID),
-    FOREIGN KEY (genre_ID) REFERENCES Genres(genre_ID)
+    FOREIGN KEY (book_ID) REFERENCES Books(book_ID), ON DELETE CASCADE
+    FOREIGN KEY (genre_ID) REFERENCES Genres(genre_ID) ON DELETE RESTRICT
 );
