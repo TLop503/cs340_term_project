@@ -25,7 +25,7 @@ CREATE OR REPLACE TABLE Books (
     language VARCHAR(255) NOT NULL,
     format ENUM('Hardcover', 'Paperback', 'Ebook', 'Audio', 'Large Print'),
     publishing_date DATE,
-    FOREIGN KEY (author_ID) REFERENCES Authors(author_ID)
+    FOREIGN KEY (author_ID) REFERENCES Authors(author_ID) ON DELETE RESTRICT
 );
 
 --- Create Patrons Table
@@ -41,13 +41,13 @@ CREATE OR REPLACE TABLE Patrons (
 --- Create Checkouts Table
 CREATE OR REPLACE TABLE Checkouts (
     checkout_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    book_ID INT NOT NULL,
-    patron_ID INT NOT NULL,
+    book_ID INT NOT NULL DEFAULT -1,
+    patron_ID INT NOT NULL DEFAULT -1,
     checkout_date DATE NOT NULL,
     due_date DATE NOT NULL,
-    is_returned BOOLEAN NOT NULL DEFAULT FALSE,
-    FOREIGN KEY (book_ID) REFERENCES Books(book_ID),
-    FOREIGN KEY (patron_ID) REFERENCES Patrons(patron_ID)
+    is_returned tinyint NOT NULL DEFAULT 0,
+    FOREIGN KEY (book_ID) REFERENCES Books(book_ID) ON DELETE SET DEFAULT,
+    FOREIGN KEY (patron_ID) REFERENCES Patrons(patron_ID) ON DELETE SET DEFAULT
 );
 
 --- Create Book_Genres Table (intersection)
@@ -55,8 +55,8 @@ CREATE OR REPLACE TABLE Book_Genres (
     book_genre_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     book_ID INT NOT NULL,
     genre_ID INT NOT NULL,
-    FOREIGN KEY (book_ID) REFERENCES Books(book_ID),
-    FOREIGN KEY (genre_ID) REFERENCES Genres(genre_ID)
+    FOREIGN KEY (book_ID) REFERENCES Books(book_ID) ON DELETE CASCADE,
+    FOREIGN KEY (genre_ID) REFERENCES Genres(genre_ID) ON DELETE RESTRICT
 );
 
 --- Example Data for Authors
@@ -103,7 +103,7 @@ INSERT INTO Books (title, author_ID, synopsis, audience, language, format, publi
 ('The Hobbit', 3, 'A high fantasy novel about a hobbit on a quest to reclaim a treasure', 'Middle-grade', 'English', 'Paperback', '1937-09-21'),
 ('The Lord of the Rings', 3, 'A high fantasy novel about a quest to destroy a powerful ring', 'Adult', 'English', 'Paperback', '1954-07-29'),
 ('1984', 4, 'A dystopian novel about a totalitarian society', 'Adult', 'English', 'Paperback', '1949-06-08'),
-('What if?', 5, 'A collection of scientific answers to absurd hypothetical questions', 'Adult', 'English', 'Paperback', '2014-09-02'),
+('What if?', 5, 'A collection of scientific answers to absurd hypothetical questions', 'Middle-Grade', 'English', 'Paperback', '2014-09-02'),
 ('Naked Lunch', 6, 'An experimental novel about drug addiction', 'Adult', 'English', 'Paperback', '1959-07-01'),
 ('Neuromancer', 7, 'A cyberpunk novel about a washed-up computer hacker', 'Adult', 'English', 'Paperback', '1984-07-01'),
 ('Hamlet', 8, 'A play about a prince who seeks revenge for his father', 'Adult', 'Ye Olde English', 'Paperback', '1603-01-01'),
@@ -120,3 +120,39 @@ INSERT INTO Patrons (first_name, last_name, date_of_birth, email, phone_number) 
 ('Bob', 'Jones', '1980-02-02', 'bob@bob.com', '555-555-5555'),
 ('Eve', 'Johnson', '1970-03-03', 'eve@nsa.gov', '555-555-5555'),
 ('Mallory', 'Brown', '1960-04-04', 'mallory@localhost', '555-555-5555');
+
+
+-- Example Book to Genre Mappings
+-- Format: (book_ID, genre_ID)
+INSERT INTO Book_Genres (book_ID, genre_ID) VALUES
+(1, 1),  -- Slaughterhouse-Five -> Science Fiction
+(1, 8),  -- Slaughterhouse-Five -> Satire
+(2, 5),  -- Breakfast of Champions -> Postmodern
+(2, 8),  -- Breakfast of Champions -> Satire
+(3, 5),  -- Infinite Jest -> Postmodern
+(3, 9),  -- Infinite Jest -> Humor
+(4, 6),  -- The Pale King -> Surreal
+(5, 6),  -- Brief Interviews with Hideous Men -> Surreal
+(6, 2),  -- The Hobbit -> Fantasy
+(7, 2),  -- The Lord of the Rings -> Fantasy
+(8, 3),  -- 1984 -> Dystopian
+(9, 10), -- What if? -> Nonfiction
+(10, 1), -- Naked Lunch -> Science Fiction
+(10, 9), -- Naked Lunch -> Humor
+(11, 4), -- Neuromancer -> Cyberpunk
+(12, 1), -- Hamlet -> Plays
+(13, 6), -- Labryinths -> Surreal
+(14, 11), -- A Heartbreaking Work of Staggering Genius -> Science
+(15, 12), -- White Noise -> Postmodern
+(16, 1), -- Dune -> Science Fiction
+(17, 6), -- The Metamorphosis -> Surreal
+(18, 12); -- The Food Lab -> Cooking
+
+--- a few checkouts
+INSERT INTO Checkouts (book_ID, patron_ID, checkout_date, due_date) VALUES
+(1, 1, '2025-02-01', '2025-02-15'),
+(3, 3, '2025-02-03', '2025-02-17'),
+(4, 4, '2025-02-04', '2025-02-18'),
+(8, 4, '2025-02-04', '2025-02-18'),
+(2, 4, '2025-02-04', '2025-02-18');
+
