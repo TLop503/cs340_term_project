@@ -1,3 +1,6 @@
+--- Drop Existing Tables if They Exist
+DROP TABLE IF EXISTS Authors, Genres, Books, Patrons, Checkouts, Book_Genres;
+
 --- Create Authors Table
 CREATE OR REPLACE TABLE Authors (
     author_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -9,7 +12,7 @@ CREATE OR REPLACE TABLE Authors (
 --- Create Genres Table
 CREATE OR REPLACE TABLE Genres (
     genre_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    genre_name VARCHAR(255) NOT NULL,
+    genre_name VARCHAR(255) NOT NULL
 );
 
 --- Create Books Table
@@ -22,7 +25,7 @@ CREATE OR REPLACE TABLE Books (
     language VARCHAR(255) NOT NULL,
     format ENUM('Hardcover', 'Paperback', 'Ebook', 'Audio', 'Large Print'),
     publishing_date DATE,
-    FOREIGN KEY (author_ID) REFERENCES Authors(author_ID) ON DELETE RESTRICT
+    FOREIGN KEY (author_ID) REFERENCES Authors(author_ID)
 );
 
 --- Create Patrons Table
@@ -43,8 +46,8 @@ CREATE OR REPLACE TABLE Checkouts (
     checkout_date DATE NOT NULL,
     due_date DATE NOT NULL,
     is_returned BOOLEAN NOT NULL DEFAULT FALSE,
-    FOREIGN KEY (book_ID) REFERENCES Books(book_ID) ON DELETE SET DEFAULT -1,
-    FOREIGN KEY (patron_ID) REFERENCES Patrons(patron_ID) ON DELETE SET DEFAULT -1
+    FOREIGN KEY (book_ID) REFERENCES Books(book_ID),
+    FOREIGN KEY (patron_ID) REFERENCES Patrons(patron_ID)
 );
 
 --- Create Book_Genres Table (intersection)
@@ -52,13 +55,11 @@ CREATE OR REPLACE TABLE Book_Genres (
     book_genre_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     book_ID INT NOT NULL,
     genre_ID INT NOT NULL,
-    FOREIGN KEY (book_ID) REFERENCES Books(book_ID), ON DELETE CASCADE
-    FOREIGN KEY (genre_ID) REFERENCES Genres(genre_ID) ON DELETE RESTRICT
+    FOREIGN KEY (book_ID) REFERENCES Books(book_ID),
+    FOREIGN KEY (genre_ID) REFERENCES Genres(genre_ID)
 );
 
---- example data
-
---- Authors
+--- Example Data for Authors
 INSERT INTO Authors (first_name, last_name, biography) VALUES
 ('Kurt', 'Vonnegut', 'An American author known for his satirical and darkly humorous novels.'),
 ('David', 'Foster Wallace', 'An American author known for his complex and often postmodern novels.'),
@@ -75,7 +76,7 @@ INSERT INTO Authors (first_name, last_name, biography) VALUES
 ('Franz', 'Kafka', 'A Czech author known for his surreal and often existential novels.'),
 ('Kenji', 'J-Lopez Alt.', 'An American author known for his food science books.');
 
---- Genres
+--- Example Data for Genres
 INSERT INTO Genres (genre_name) VALUES
 ('Science Fiction'),
 ('Fantasy'),
@@ -92,7 +93,7 @@ INSERT INTO Genres (genre_name) VALUES
 ('Poetry'),
 ('Plays');
 
---- Books
+--- Example Data for Books
 INSERT INTO Books (title, author_ID, synopsis, audience, language, format, publishing_date) VALUES
 ('Slaughterhouse-Five', 1, 'A science fiction novel about the authors experience in the firebombing of Dresden', 'Adult', 'English', 'Paperback', '1969-03-31'),
 ('Breakfast of Champions', 1, 'A novel about the adventures of a writer and a car dealer', 'Adult', 'English', 'Paperback', '1973-10-01'),
@@ -106,19 +107,16 @@ INSERT INTO Books (title, author_ID, synopsis, audience, language, format, publi
 ('Naked Lunch', 6, 'An experimental novel about drug addiction', 'Adult', 'English', 'Paperback', '1959-07-01'),
 ('Neuromancer', 7, 'A cyberpunk novel about a washed-up computer hacker', 'Adult', 'English', 'Paperback', '1984-07-01'),
 ('Hamlet', 8, 'A play about a prince who seeks revenge for his father', 'Adult', 'Ye Olde English', 'Paperback', '1603-01-01'),
-('Labryinths', 9, 'A collection of short stories and essays', 'Adult', 'Spanish ', 'Paperback', '1962-01-01'),
+('Labryinths', 9, 'A collection of short stories and essays', 'Adult', 'Spanish', 'Paperback', '1962-01-01'),
 ('A Heartbreaking Work of Staggering Genius', 10, 'A semi-autobiographical novel about the authors life', 'Adult', 'English', 'Paperback', '2000-02-01'),
 ('White Noise', 11, 'A postmodern novel about a toxic cloud', 'Adult', 'English', 'Paperback', '1985-01-01'),
 ('Dune', 12, 'A science fiction novel about worms', 'Adult', 'English', 'Paperback', '1965-06-01'),
 ('The Metamorphosis', 13, 'A surreal novel about isolation and transformation', 'Adult', 'English', 'Paperback', '1915-10-15'),
 ('The Food Lab', 14, 'A food science book about cooking', 'Adult', 'English', 'Hardcover', '2015-09-21');
 
---- Patrons
---- use alice, bob, eve, and mallory as placeholder names
+--- Example Data for Patrons
 INSERT INTO Patrons (first_name, last_name, date_of_birth, email, phone_number) VALUES
 ('Alice', 'Smith', '1990-01-01', 'alice@alice.com', '555-555-5555'),
 ('Bob', 'Jones', '1980-02-02', 'bob@bob.com', '555-555-5555'),
 ('Eve', 'Johnson', '1970-03-03', 'eve@nsa.gov', '555-555-5555'),
 ('Mallory', 'Brown', '1960-04-04', 'mallory@localhost', '555-555-5555');
-
-
