@@ -2,10 +2,10 @@ SET FOREIGN_KEY_CHECKS=0;
 SET AUTOCOMMIT = 0;
 
 
---- Drop Existing Tables if They Exist
-DROP TABLE IF EXISTS Authors, Genres, Books, Patrons, Checkouts, Book_Genres;
+-- Drop Existing Tables if They Exist
+DROP TABLE IF EXISTS Book_Genres, Checkouts, Genres, Books, Authors, Patrons;
 
---- Create Authors Table
+-- Create Authors Table
 CREATE OR REPLACE TABLE Authors (
     author_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     first_name VARCHAR(255) NOT NULL,
@@ -13,13 +13,13 @@ CREATE OR REPLACE TABLE Authors (
     biography TEXT
 );
 
---- Create Genres Table
+-- Create Genres Table
 CREATE OR REPLACE TABLE Genres (
     genre_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     genre_name VARCHAR(255) NOT NULL
 );
 
---- Create Books Table
+-- Create Books Table
 CREATE OR REPLACE TABLE Books (
     book_ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     title VARCHAR(255) NOT NULL,
@@ -32,7 +32,7 @@ CREATE OR REPLACE TABLE Books (
     FOREIGN KEY (author_ID) REFERENCES Authors(author_ID) ON DELETE RESTRICT
 );
 
---- Create Patrons Table
+-- Create Patrons Table
 CREATE OR REPLACE TABLE Patrons (
     patron_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     first_name VARCHAR(255) NOT NULL,
@@ -42,7 +42,7 @@ CREATE OR REPLACE TABLE Patrons (
     phone_number VARCHAR(16)
 );
 
---- Create Checkouts Table
+-- Create Checkouts Table
 CREATE OR REPLACE TABLE Checkouts (
     checkout_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     book_ID INT NOT NULL DEFAULT -1,
@@ -54,7 +54,7 @@ CREATE OR REPLACE TABLE Checkouts (
     FOREIGN KEY (patron_ID) REFERENCES Patrons(patron_ID) ON DELETE SET DEFAULT
 );
 
---- Create Book_Genres Table (intersection)
+-- Create Book_Genres Table (intersection)
 CREATE OR REPLACE TABLE Book_Genres (
     book_genre_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     book_ID INT NOT NULL,
@@ -63,7 +63,7 @@ CREATE OR REPLACE TABLE Book_Genres (
     FOREIGN KEY (genre_ID) REFERENCES Genres(genre_ID) ON DELETE RESTRICT
 );
 
---- Example Data for Authors
+-- Example Data for Authors
 INSERT INTO Authors (first_name, last_name, biography) VALUES
 ('Bob', 'Jones', 'Local No Name CO (aspiring) author'),
 ('Kurt', 'Vonnegut', 'An American author known for his satirical and darkly humorous novels.'),
@@ -82,7 +82,7 @@ INSERT INTO Authors (first_name, last_name, biography) VALUES
 ('Kenji', 'J-Lopez Alt.', 'An American author known for his food science books.'),
 ('Mark Z.', 'Danielowski', 'An American author known for his ergodic lit and nested frame stories');
 
---- Example Data for Genres
+-- Example Data for Genres
 INSERT INTO Genres (genre_name) VALUES
 ('Science Fiction'),
 ('Fantasy'),
@@ -99,7 +99,7 @@ INSERT INTO Genres (genre_name) VALUES
 ('Poetry'),
 ('Plays');
 
---- Example Data for Books
+-- Example Data for Books
 INSERT INTO Books (title, author_ID, synopsis, audience, language, format, publishing_date) VALUES
 ('Slaughterhouse-Five', 1, 'A science fiction novel about the authors experience in the firebombing of Dresden', 'Adult', 'English', 'Paperback', '1969-03-31'),
 ('Breakfast of Champions', 1, 'A novel about the adventures of a writer and a car dealer', 'Adult', 'English', 'Paperback', '1973-10-01'),
@@ -121,7 +121,7 @@ INSERT INTO Books (title, author_ID, synopsis, audience, language, format, publi
 ('The Food Lab', 14, 'A food science book about cooking', 'Adult', 'English', 'Hardcover', '2015-09-21'),
 ('House of Leaves', 15, 'An egrodic novel about a house that is bigger on the inside', 'Adult', 'English', 'Paperback', '2000-03-07');
 
---- Example Data for Patrons
+-- Example Data for Patrons
 INSERT INTO Patrons (first_name, last_name, date_of_birth, email, phone_number) VALUES
 ('Alice', 'Smith', '1990-01-01', 'alice@alice.com', '555-555-5555'),
 ('Bob', 'Jones', '1980-02-02', 'bob@bob.com', '555-555-5555'),
@@ -155,7 +155,7 @@ INSERT INTO Book_Genres (book_ID, genre_ID) VALUES
 (17, 6), -- The Metamorphosis -> Surreal
 (18, 12); -- The Food Lab -> Cooking
 
---- a few checkouts
+-- a few checkouts
 INSERT INTO Checkouts (book_ID, patron_ID, checkout_date, due_date, is_returned) VALUES
 (4, 1, '2025-01-01', '2025-01-07', 1),
 (1, 1, '2025-02-01', '2025-02-15', 0),
@@ -164,7 +164,7 @@ INSERT INTO Checkouts (book_ID, patron_ID, checkout_date, due_date, is_returned)
 (8, 4, '2025-02-04', '2025-02-18', 0),
 (2, 4, '2025-02-04', '2025-02-18', 0);
 
---- Show our work!
+-- Show our work!
 SELECT * FROM Authors LIMIT 5;
 SELECT * FROM Genres LIMIT 5;
 SELECT * FROM Books LIMIT 5;
