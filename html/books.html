@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Books</title>
+    </head>
+    <body>
+        <div class="topnav">
+            <a href="index.html">Home</a>
+            <a href="checkout.html">Checkout</a>
+            <a href="inventory.html">View Books</a>
+            <a href="books.html">Book Management</a>
+            <a href="account.html">Account Info</a>
+          </div> 
+        
+        <h1>Book Management System</h1>
+        <p>Here you can update our inventory of books, add new titles, or delete retired editions.</p>
+        
+        <table border="2">
+            <tr>
+                <th>Book ID</th>
+                <th>Title</th>
+                <th>Author ID</th>
+                <th>Synopsis</th>
+                <th>Audience</th>
+                <th>Format</th>
+                <th>Language</th>
+                <th>Publishing Date</th>
+            </tr>
+        </table>
+        
+        <h2>Add Book:</h2>
+        <form method="post" action="#">
+            <label>Title: <input type="text" name="title" required></label><br>
+            <label>Author ID: <input type="number" name="author_ID" required></label><br>
+            <label>Synopsis: <textarea name="synopsis"></textarea></label><br>
+            <label>Audience: 
+                <select name="audience">
+                    <option value="Youth">Youth</option>
+                    <option value="Middle-grade">Middle-grade</option>
+                    <option value="YA">YA</option>
+                    <option value="Adult">Adult</option>
+                    <option value="Misc">Misc</option>
+                </select>
+            </label><br>
+            <label>Format: 
+                <select name="format">
+                    <option value="Hardcover">Hardcover</option>
+                    <option value="Paperback">Paperback</option>
+                    <option value="Ebook">Ebook</option>
+                    <option value="Audio">Audio</option>
+                    <option value="Large Print">Large Print</option>
+                </select>
+            </label><br>
+            <label>Language: <input type="text" name="language" required></label><br>
+            <label>Publishing Date: <input type="date" name="publishing_date"></label><br>
+            <button type="submit">Add Book</button>
+        </form>
+        <hr><br>
+        
+        <h2>Update Book:</h2>
+        <form method="post" action="#">
+            <label>ID: 
+                <select name="format">
+                    <option value="">1</option>
+                </select>
+            </label><br>
+            <label>Title: <input type="text" name="title"></label><br>
+            <label>Author ID: <input type="number" name="author_ID"></label><br>
+            <label>Synopsis: <textarea name="synopsis"></textarea></label><br>
+            <label>Audience: 
+                <select name="audience">
+                    <option value="Youth">Youth</option>
+                    <option value="Middle-grade">Middle-grade</option>
+                    <option value="YA">YA</option>
+                    <option value="Adult">Adult</option>
+                    <option value="Misc">Misc</option>
+                </select>
+            </label><br>
+            <label>Format: 
+                <select name="format">
+                    <option value="Hardcover">Hardcover</option>
+                    <option value="Paperback">Paperback</option>
+                    <option value="Ebook">Ebook</option>
+                    <option value="Audio">Audio</option>
+                    <option value="Large Print">Large Print</option>
+                </select>
+            </label><br>
+            <label>Language: <input type="text" name="language"></label><br>
+            <label>Publishing Date: <input type="date" name="publishing_date"></label><br>
+            <button type="submit">Update Book</button>
+        </form>
+        <hr><br>
+
+        
+        <h2>Delete Book:</h2>
+        <form method="post" action="#">
+            <label>Book ID: <input type="number" name="book_ID" required></label><br>
+            <button type="submit">Delete Book</button>
+        </form>
+    </body>
+</html>
