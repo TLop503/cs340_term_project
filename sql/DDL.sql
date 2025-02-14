@@ -23,7 +23,7 @@ CREATE OR REPLACE TABLE Genres (
 CREATE OR REPLACE TABLE Books (
     book_ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     title VARCHAR(255) NOT NULL,
-    author_ID INT NOT NULL,
+    author_ID INT,
     synopsis TEXT,
     audience ENUM('Youth', 'Middle-grade', 'YA', 'Adult', 'Misc'),
     language VARCHAR(255) NOT NULL,
