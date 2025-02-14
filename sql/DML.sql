@@ -1,15 +1,6 @@
 -- In all the below queries the colon : character is used to denote a
 -- variables that will have data from the backend programming language
 
--- Done - INSERT for every table 
--- TODO use every table in atleast one select
--- Done - one DELETE and one UPDATE from any one entitiy plus one M:M relationship
--- Done (I think) - use dynamically populated drop downlists for FKs
--- TODO in one relationship, be able to set FK to NULL using UPDATE, removing a relationship
--- TODO delete record in from M:M relationship without data anomaly
-
--- QUESTION - how to do enums??
-
 -- CREATE ----------------------------------------------------------
 
 -- add a new author
