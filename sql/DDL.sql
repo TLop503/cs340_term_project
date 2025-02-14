@@ -29,7 +29,7 @@ CREATE OR REPLACE TABLE Books (
     language VARCHAR(255) NOT NULL,
     format ENUM('Hardcover', 'Paperback', 'Ebook', 'Audio', 'Large Print'),
     publishing_date DATE,
-    FOREIGN KEY (author_ID) REFERENCES Authors(author_ID) ON DELETE RESTRICT
+    FOREIGN KEY (author_ID) REFERENCES Authors(author_ID) ON DELETE SET NULL
 );
 
 -- Create Patrons Table
