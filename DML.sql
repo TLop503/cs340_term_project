@@ -52,8 +52,18 @@ INSERT INTO Book_Genres (book_ID, genre_ID)
     VALUES (:book_ID_input_from_dropdown, :genre_ID_input_from_dropdown);
 
 -- READ ------------------------------------------------------------
--- in other file currently
+-- Naive, for dispalying sample of whole dataset
+SELECT * FROM Authors LIMIT 10;
+SELECT * FROM Genres LIMIT 10;
+SELECT * FROM Books LIMIT 10;
+SELECT * FROM Patrons LIMIT 10;
+SELECT * FROM Checkouts LIMIT 10;
+SELECT * FROM Book_Genres LIMIT 10;
 
+-- Or for specifying desired fields we'd need to:
+-- SELECT * FROM <TABLE> WHERE <FIELD> = <VALUE>;
+-- However: Every table should be used in at least one SELECT query. For the SELECT queries, it is fine to just display the content of the tables. It is generally not appropriate to have only a single query that joins all tables and displays them.
+-- so, I'm not going to implement all of this now, since it will need to be plugged into the rest of the stack later.
 
 -- UPDATE ----------------------------------------------------------
 
