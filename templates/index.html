@@ -3,14 +3,7 @@
         <title>No Name CO Library</title>
     </head>
     <body>
-        <div class="topnav">
-            <a href="{{ url_for('home') }}">Home</a>
-            <a href="{{ url_for('checkout') }}">Checkout</a>
-            <a href="{{ url_for('inventory') }}">View Books</a>
-            <a href="{{ url_for('books') }}">Book Management</a>
-            <a href="{{ url_for('genre') }}">Genres</a>
-            <a href="{{ url_for('account') }}">Account Info</a>
-          </div> 
+        {% include 'header.html.jinja' %}
         <h1>Welcome to the No Name CO Library Management System!</h1>
         <p>Here you can update our inventory of books, set up and edit user accounts, and help patrons check out.</p>
     </body>

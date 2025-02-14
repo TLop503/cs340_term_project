@@ -1,19 +1,11 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Account Info</title>
+        <title>Patron Info</title>
     </head>
     <body>
-        <div class="topnav">
-            <a href="{{ url_for('home') }}">Home</a>
-            <a href="{{ url_for('checkout') }}">Checkout</a>
-            <a href="{{ url_for('inventory') }}">View Books</a>
-            <a href="{{ url_for('books') }}">Book Management</a>
-            <a href="{{ url_for('genre') }}">Genres</a>
-            <a href="{{ url_for('account') }}">Account Info</a>
-          </div>
-
-        <h1>Account Info</h1>
+        {% include 'header.html.jinja' %}
+        <h1>Patron Info</h1>
         <p>Here you can view and manage accounts for our patrons.</p>
 
         <!--Patron Table-->

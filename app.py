@@ -12,10 +12,6 @@ def home():
 def checkout():
     return render_template('checkout.html')
 
-@app.route('/inventory')
-def inventory():
-    return render_template('inventory.html')
-
 @app.route('/books')
 def books():
     return render_template('books.html')
@@ -24,9 +20,17 @@ def books():
 def genre():
     return render_template('genre.html')
 
-@app.route('/account')
-def account():
-    return render_template('account.html')
+@app.route('/patron')
+def patron():
+    return render_template('patron.html')
+
+@app.route('/author')
+def author():
+    return render_template('author.html')
+
+@app.route('/book_genre')
+def book_genre():
+    return render_template('book_genre.html')
 
 # Listener
 if __name__ == "__main__":

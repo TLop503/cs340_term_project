@@ -4,15 +4,7 @@
         <title>Checkouts</title>
     </head>
     <body>
-        <div class="topnav">
-            <a href="{{ url_for('home') }}">Home</a>
-            <a href="{{ url_for('checkout') }}">Checkout</a>
-            <a href="{{ url_for('inventory') }}">View Books</a>
-            <a href="{{ url_for('books') }}">Book Management</a>
-            <a href="{{ url_for('genre') }}">Genres</a>
-            <a href="{{ url_for('account') }}">Account Info</a>
-          </div> 
-
+        {% include 'header.html.jinja' %}
         <h1>Checkout</h1>
         <p>Here you can do lend books to patrons or accept them upon return</p>
 
@@ -47,5 +39,30 @@
         </label><br>
         <button type="submit">Accept Book</button>
         <hr><br>
+
+        <h2>Active Checkouts</h2>
+        <table border="2">
+            <tr>
+                <th>Checkout ID</th>
+                <th>Book ID</th>
+                <th>Patron ID</th>
+                <th>Checkout Date</th>
+                <th>Due Date</th>
+            </tr>
+            <!-- Rows for active checkouts will go here -->
+        </table>
+
+        <h2>Past Checkouts</h2>
+        <table border="2">
+            <tr>
+                <th>Checkout ID</th>
+                <th>Book ID</th>
+                <th>Patron ID</th>
+                <th>Checkout Date</th>
+                <th>Due Date</th>
+            </tr>
+            <!-- Rows for past checkouts will go here -->
+        </table>
+        
     </body>
 </html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Author Info</title>
+    </head>
+    <body>
+        {% include 'header.html.jinja' %}
+        <h1>Author Info</h1>
+        <p>Here you can view and manage authors for our books.</p>
+
+        <!-- Author Table -->
+        <table border="2">
+            <tr>
+                <th>Author ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Biography</th>
+            </tr>
+        </table>
+
+        <h2>Add Author</h2>
+        <form method="post" action="#">
+            <label>First Name: <input type="text" name="first_name" required></label><br>
+            <label>Last Name: <input type="text" name="last_name" required></label><br>
+            <label>Biography: <textarea name="biography"></textarea></label><br>
+            <button type="submit">Add Author</button>
+        </form>
+        <hr><br>
+
+        <h2>Edit Author</h2>
+        <form method="post" action="#">
+            <label>ID:
+                <select name="author_ID">
+                    <option value="1">Bob Lastname</option>
+                </select>
+            </label><br>
+            <label>New First Name: <input type="text" name="first_name"></label><br>
+            <label>New Last Name: <input type="text" name="last_name"></label><br>
+            <label>Biography: <textarea name="biography"></textarea></label><br>
+            <button type="submit">Edit Author</button>
+        </form>
+        <hr><br>
+
+        <h2>Delete Author</h2>
+        <form method="post" action="#">
+            <label>Author:
+                <select name="author_ID">
+                    <option value="1">Bob Lastname</option>
+                </select>
+            </label><br>
+            <button type="submit">Delete Author</button>
+        </form>
+        <hr><br>
+    </body>
+</html>

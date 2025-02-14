@@ -4,15 +4,7 @@
         <title>Genre Info</title>
     </head>
     <body>
-        <div class="topnav">
-            <a href="{{ url_for('home') }}">Home</a>
-            <a href="{{ url_for('checkout') }}">Checkout</a>
-            <a href="{{ url_for('inventory') }}">View Books</a>
-            <a href="{{ url_for('books') }}">Book Management</a>
-            <a href="{{ url_for('genre') }}">Genres</a>
-            <a href="{{ url_for('account') }}">Account Info</a>
-          </div>
-
+        {% include 'header.html.jinja' %}
         <h1>Genre Info</h1>
         <p>Here you can view and manage genres for our books</p>
 

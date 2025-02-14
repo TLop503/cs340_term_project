@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Book Genres</title>
+    </head>
+    <body>
+        {% include 'header.html.jinja' %}
+        <h1>Book Genres</h1>
+        <p>Here you can view and add mappings between books and genres.</p>
+
+        <h2>Current Book-Genre Mappings</h2>
+        <table border="2">
+            <tr>
+                <th>Book Genre ID</th>
+                <th>Book Title</th>
+                <th>Genre Name</th>
+            </tr>
+            <!-- Rows for book-genre mappings will go here -->
+        </table>
+
+        <h2>Add Book-Genre Mapping:</h2>
+        <form method="post" action="#">
+            <label>Book Title: 
+                <select name="book_ID">
+                    <!-- Options for book titles will go here -->
+                </select>
+            </label><br>
+            <label>Genre Name: 
+                <select name="genre_ID">
+                    <!-- Options for genre names will go here -->
+                </select>
+            </label><br>
+            <button type="submit">Add Mapping</button>
+        </form>
+    </body>
+</html>
