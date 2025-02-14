@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Account Info</title>
+    </head>
+    <body>
+        <div class="topnav">
+            <a href="index.html">Home</a>
+            <a href="checkout.html">Checkout</a>
+            <a href="inventory.html">View Books</a>
+            <a href="books.html">Book Management</a>
+            <a href="genre.html">Genres</a>
+            <a href="account.html">Account Info</a>
+          </div>
+
+        <h1>Account Info</h1>
+        <p>Here you can view and manage accounts for our patrons.</p>
+
+        <!--Patron Table-->
+        <table border="2">
+            <tr>
+                <th>Patron ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>DOB</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+            </tr>
+        </table>
+        <h2>Find User</h2>
+        <p>This looks up users. Toggle behavior of search paramaters below:</p>
+        <label><input type="radio" name="behavior">OR</label>
+        <label><input type="radio" name="behavior">AND</label>
+        <form method="post" action="#">
+            <label>Patron: <input type="text" name="patron" required></label><br>
+            <label>First Name: <input type="text" name="first_name" required></label><br>
+            <label>Last Name: <input type="text" name="last_name" required></label><br>
+            <label>Date of Birth <input type="date" name="date_of_birth" required></label><br>
+            <label>Email Address<input type="email" name="email"></label><br>
+            <label>Phone Number<input type="number" name="phone_number"></label><br>
+            <button type="submit">Find User</button>
+        </form>
+        <hr><br>
+
+        <h2>Add User</h2>
+        <form method="post" action="#">
+            <label>Patron: <input type="text" name="patron" required></label><br>
+            <label>First Name: <input type="text" name="first_name" required></label><br>
+            <label>Last Name: <input type="text" name="last_name" required></label><br>
+            <label>Date of Birth <input type="date" name="date_of_birth" required></label><br>
+            <label>Email Address<input type="email" name="email"></label><br>
+            <label>Phone Number<input type="number" name="phone_number"></label><br>
+            <button type="submit">Add User</button>
+        </form>
+        <hr><br>
+        
+        <h2>Edit User</h2>
+        <form method="post" action="#">
+            <label>ID:
+                <select name="patron_ID">
+                    <option value="">1</option>
+                </select>
+            </label><br>
+            <label>First Name: <input type="text" name="first_name" required></label><br>
+            <label>Last Name: <input type="text" name="last_name" required></label><br>
+            <label>Date of Birth <input type="date" name="date_of_birth" required></label><br>
+            <label>Email Address<input type="email" name="email"></label><br>
+            <label>Phone Number<input type="number" name="phone_number"></label><br>
+            <button type="submit">Add User</button>
+        </form>
+        <hr><br>
+
+        <h2>Delete User</h2>
+        <form method="post" action="#">
+            <label>ID:
+                <select name="patron_ID">
+                    <option value="">1</option>
+                </select>
+            </label><br>
+            <button type="submit">Delete User</button>
+        </form>
+        <hr><br>
+    </body>
+</html>

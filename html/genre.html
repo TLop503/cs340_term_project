@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Genre Info</title>
+    </head>
+    <body>
+        <div class="topnav">
+            <a href="index.html">Home</a>
+            <a href="checkout.html">Checkout</a>
+            <a href="inventory.html">View Books</a>
+            <a href="books.html">Book Management</a>
+            <a href="genre.html">Genres</a>
+            <a href="account.html">Account Info</a>
+          </div>
+
+        <h1>Genre Info</h1>
+        <p>Here you can view and manage genres for our books</p>
+
+        <!--Patron Table-->
+        <table border="2">
+            <tr>
+                <th>Genre ID</th>
+                <th>Genre Name</th>
+            </tr>
+        </table>
+        <h2>Add Genre</h2>
+        <form method="post" action="#">
+            <label>Name: <input type="text" name="genre_name" required></label><br>
+            <button type="submit">Add Genre</button>
+        </form>
+        <hr><br>
+        <h2>Edit Genre</h2>
+        <form method="post" action="#">
+            <label>ID:
+                <select name="genre_ID">
+                    <option value="">1</option>
+                </select>
+            </label><br>
+            <label>New Name: <input type="text" name="genre_name" required></label><br>
+            <button type="submit">Edit Genre</button>
+        </form>
+        <hr><br>
+
+        <h2>Delete Genre</h2>
+        <form method="post" action="#">
+            <label>ID:
+                <select name="Genre_ID">
+                    <option value="">1</option>
+                </select>
+            </label><br>
+            <button type="submit">Delete Genre</button>
+        </form>
+        <hr><br>
+    </body>
+</html>

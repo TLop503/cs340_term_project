@@ -19,6 +19,7 @@ Term project for Intro to Databases; A library management system
             <a href="checkout.html">Checkout</a>
             <a href="inventory.html">View Books</a>
             <a href="books.html">Book Management</a>
+            <a href="genre.html">Genres</a>
             <a href="account.html">Account Info</a>
           </div> 
         
