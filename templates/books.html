@@ -4,11 +4,13 @@
         <title>Books</title>
     </head>
     <body>
+
         {% include 'base.html.jinja' %}
         {% block content %}
-        <h1>Book Management System</h1>
+        <h1>Book Inventory</h1>
         <p>Here you can update our inventory of books, add new titles, or delete retired editions.</p>
 
+        <h2>Books Table</h2>
         <table border="2">
             <thead>
                 <tr>
@@ -106,7 +108,7 @@
             </tbody>
         </table>
 
-        <h2>Add Book:</h2>
+        <h2>Add Book</h2>
         <form method="post" action="#">
             <label>Title: <input type="text" name="title" required></label><br>
             <label>Author: 
@@ -139,7 +141,7 @@
         </form>
         <hr><br>
 
-        <h2>Update Book:</h2>
+        <h2>Update Book</h2>
         <form method="post" action="#">
             <label>ID:
                 <select name="book_id">
@@ -178,7 +180,7 @@
         <hr><br>
 
 
-        <h2>Delete Book:</h2>
+        <h2>Delete Book</h2>
         <form method="post" action="#">
             <label>Book ID: <input type="number" name="book_ID" required></label><br>
             <button type="submit">Delete Book</button>

@@ -4,6 +4,8 @@ Term project for Intro to Databases; A library management system
 ## Notes for later:
 - Bools are known to be tricky, if needed swap to int or char (0/1, y/n)
 - Check `ON DELETE` methods once implementation starts
+- I think there are too many updates that don't match the ones we picked for crud
+- delete authors > find user? why is it here
 
 ## Useful HTML snippets:
 

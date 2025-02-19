@@ -9,7 +9,7 @@
         <h1>Book Genres</h1>
         <p>Here you can view and add mappings between books and genres.</p>
 
-        <h2>Current Book-Genre Mappings</h2>
+        <h2>Book Genres Table</h2>
         <table border="2">
             <thead>
                 <tr>
@@ -67,7 +67,7 @@
             <!-- Rows for book-genre mappings will go here -->
         </table>
 
-        <h2>Add Book-Genre Mapping:</h2>
+        <h2>Add Book Genre</h2>
         <form method="post" action="#">
             <label>Book Title: 
                 <select name="book_ID">
@@ -80,6 +80,35 @@
                 </select>
             </label><br>
             <button type="submit">Add Mapping</button>
+        </form>
+        <h2>Edit Book Genre</h2>
+        <form method="post" action="#">
+            <label>Book Title: 
+                <select name="book_genre_ID">
+                    <option value="1">1</option>
+                </select>
+            </label><br>
+            <label>Book Title: 
+                <select name="book_ID">
+                    <!-- Options for book titles will go here -->
+                </select>
+            </label><br>
+            <label>Genre Name: 
+                <select name="genre_ID">
+                    <!-- Options for genre names will go here -->
+                </select>
+            </label><br>
+            <button type="submit">Edit Book Genre</button>
+        </form>
+
+        <h2>Delete Genre</h2>
+        <form method="post" action="#">
+            <label>Book Genre:
+                <select name="book_genre_ID">
+                    <option value="1">1</option>
+                </select>
+            </label><br>
+            <button type="submit">Delete Book Genre</button>
         </form>
         {% endblock %}
     </body>
