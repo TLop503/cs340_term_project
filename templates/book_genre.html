@@ -4,7 +4,8 @@
         <title>Book Genres</title>
     </head>
     <body>
-        {% include 'header.html.jinja' %}
+        {% include 'base.html.jinja' %}
+        {% block content %}
         <h1>Book Genres</h1>
         <p>Here you can view and add mappings between books and genres.</p>
 
@@ -80,5 +81,6 @@
             </label><br>
             <button type="submit">Add Mapping</button>
         </form>
+        {% endblock %}
     </body>
 </html>

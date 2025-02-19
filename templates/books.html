@@ -4,7 +4,8 @@
         <title>Books</title>
     </head>
     <body>
-        {% include 'header.html.jinja' %}
+        {% include 'base.html.jinja' %}
+        {% block content %}
         <h1>Book Management System</h1>
         <p>Here you can update our inventory of books, add new titles, or delete retired editions.</p>
 
@@ -182,5 +183,6 @@
             <label>Book ID: <input type="number" name="book_ID" required></label><br>
             <button type="submit">Delete Book</button>
         </form>
+        {% endblock %}
     </body>
 </html>

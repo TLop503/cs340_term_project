@@ -4,7 +4,8 @@
         <title>Author Info</title>
     </head>
     <body>
-        {% include 'header.html.jinja' %}
+        {% include 'base.html.jinja' %}
+        {% block content %}
         <h1>Author Info</h1>
         <p>Here you can view and manage authors for our books.</p>
 
@@ -91,5 +92,6 @@
             <button type="submit">Delete Author</button>
         </form>
         <hr><br>
+        {% endblock %}
     </body>
 </html>

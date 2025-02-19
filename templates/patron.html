@@ -4,7 +4,8 @@
         <title>Patron Info</title>
     </head>
     <body>
-        {% include 'header.html.jinja' %}
+        {% include 'base.html.jinja' %}
+        {% block content %}
         <h1>Patron Info</h1>
         <p>Here you can view and manage accounts for our patrons.</p>
 
@@ -108,5 +109,6 @@
             <button type="submit">Delete User</button>
         </form>
         <hr><br>
+        {% endblock %}
     </body>
 </html>

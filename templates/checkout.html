@@ -4,7 +4,8 @@
         <title>Checkouts</title>
     </head>
     <body>
-        {% include 'header.html.jinja' %}
+        {% include 'base.html.jinja' %}
+        {% block content %}
         <h1>Checkout</h1>
         <p>Here you can do lend books to patrons or accept them upon return</p>
 
@@ -114,6 +115,7 @@
             </tbody>
             <!-- Rows for past checkouts will go here -->
         </table>
-        
+        <hr><br>
+        {% endblock %}
     </body>
 </html>

@@ -32,6 +32,7 @@ def author():
 def book_genre():
     return render_template('book_genre.html')
 
+
 # Listener
 if __name__ == "__main__":
-    app.run(port=1739, debug=True)
+    app.run(port=1740, debug=True)
