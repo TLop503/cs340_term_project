@@ -4,7 +4,8 @@
         <title>Checkouts</title>
     </head>
     <body>
-        {% include 'header.html.jinja' %}
+        {% include 'base.html.jinja' %}
+        {% block content %}
         <h1>Checkout History</h1>
         <p>Here you can do lend books to patrons or accept them upon return</p>
 
@@ -83,8 +84,6 @@
             </tbody>
             <!-- Rows for past checkouts will go here -->
         </table>
-
-
         <h2>Add Checkout:</h2>
         <p>Note that checkouts are non-deletable transactions</p>
         <form method="post" action="#">
@@ -116,7 +115,6 @@
         </label><br>
         <button type="submit">Accept Book</button>
         <hr><br>
-
-        
+        {% endblock %}
     </body>
 </html>

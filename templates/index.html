@@ -1,10 +1,13 @@
+<!DOCTYPE html>
 <html>
     <head>
         <title>No Name CO Library</title>
     </head>
     <body>
-        {% include 'header.html.jinja' %}
+        {% include 'base.html.jinja' %}
+        {% block content %}
         <h1>Welcome to the No Name CO Library Management System!</h1>
         <p>Here you can update our inventory of books, set up and edit user accounts, and help patrons check out.</p>
+        {% endblock %}
     </body>
 </html>

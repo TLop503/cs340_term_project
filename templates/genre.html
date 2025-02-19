@@ -4,7 +4,8 @@
         <title>Genres</title>
     </head>
     <body>
-        {% include 'header.html.jinja' %}
+        {% include 'base.html.jinja' %}
+        {% block content %}
         <h1>Genre Info</h1>
         <p>Here you can view and manage genres for our books</p>
 
@@ -79,5 +80,6 @@
             <button type="submit">Delete Genre</button>
         </form>
         <hr><br>
+        {% endblock %}
     </body>
 </html>
