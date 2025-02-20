@@ -96,3 +96,6 @@ DELETE FROM Patrons WHERE patron_ID = :patron_ID_selected_from_page;
 
 -- delete a book-genre
 DELETE FROM Book_Genres WHERE book_genre_ID = :book_genre_ID_selected_from_page;
+
+-- delete a book (and genre map associated)
+DELETE FROM Books WHERE book_ID = :book_ID_selected_from_page;
