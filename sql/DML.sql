@@ -72,7 +72,7 @@ SELECT checkout_ID, book_ID, patron_ID, checkout_date, due_date, is_returned
     FROM Checkouts WHERE checkout_ID = checkout_ID_selected_from_page;
 
 UPDATE Checkouts
-    SET due_date = :due_date_input, is_returned = is_returned_input\
+    SET is_returned = 1 --true
     WHERE checkout_ID = checkout_ID_selected_from_page;
 
 -- update book-genre's data based on form submission
