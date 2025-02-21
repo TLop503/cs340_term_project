@@ -113,7 +113,10 @@
             <label>Title: <input type="text" name="title" required></label><br>
             <label>Author: 
                 <select name="author">
-                <option value="Bob Lastname">Bob Lastname</option>
+                    <option value="1">Alice Smith</option>
+                    <option value="2">Bob Jones</option>
+                    <option value="3">Eve Johnson</option>
+                    <option value="4">Mallory Brown</option>
                 </select>
             </label><br>
             <label>Synopsis: <textarea name="synopsis"></textarea></label><br>
@@ -143,15 +146,25 @@
 
         <h2>Update Book</h2>
         <form method="post" action="#">
-            <label>ID:
+            <label>Book ID:
                 <select name="book_id">
-                    <option value="">1</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
                 </select>
             </label><br>
             <label>Title: <input type="text" name="title"></label><br>
             <label>Author: 
                 <select name="author">
-                <option value="Bob Lastname">Bob Lastname</option>
+                    <option value="1">Alice Smith</option>
+                    <option value="2">Bob Jones</option>
+                    <option value="3">Eve Johnson</option>
+                    <option value="4">Mallory Brown</option>
                 </select>
             </label><br>
             <label>Synopsis: <textarea name="synopsis"></textarea></label><br>
@@ -181,8 +194,19 @@
 
 
         <h2>Delete Book</h2>
-        <form method="post" action="#">
-            <label>Book ID: <input type="number" name="book_ID" required></label><br>
+        <form method="post" action="#">            
+            <label>Book ID:
+                <select name="book_id">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                </select>
+            </label><br>
             <button type="submit">Delete Book</button>
         </form>
         {% endblock %}
