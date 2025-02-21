@@ -86,7 +86,7 @@ INSERT INTO Genres (genre_name) VALUES
 -- Example Data for Books
 INSERT INTO Books (title, author_ID, synopsis, audience, language, format, publishing_date) VALUES
 ('Infinite Jest', 1, 'A postmodern novel about addiction and entertainment', 'Adult', 'English', 'Paperback', '1996-02-01'),
-('The Necronomicon', , '?????????????', 'Adult', 'Latin', 'Hardcover', '1606-06-06'),
+('The Necronomicon', NULL, '?????????????', 'Adult', 'Latin', 'Hardcover', '1606-06-06'),
 ('Brief Interviews with Hideous Men', 1, 'A collection of short stories', 'Adult', 'English', 'Paperback', '1999-05-01'),
 ('The Hobbit', 2, 'A high fantasy novel about a hobbit on a quest to reclaim a treasure', 'Middle-grade', 'English', 'Paperback', '1937-09-21'),
 ('The Lord of the Rings', 2, 'A high fantasy novel about a quest to destroy a powerful ring', 'Adult', 'English', 'Paperback', '1954-07-29'),
