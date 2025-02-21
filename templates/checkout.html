@@ -19,6 +19,7 @@
                     <th>Patron ID</th>
                     <th>Checkout Date</th>
                     <th>Due Date</th>
+                    <th>Return Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -28,6 +29,7 @@
                     <td>1</td>
                     <td>2025-02-01</td>
                     <td>2025-02-15</td>
+                    <td>0</td>
                 </tr>
                 <tr>
                     <td>3</td>
@@ -35,6 +37,7 @@
                     <td>3</td>
                     <td>2025-02-03</td>
                     <td>2025-02-17</td>
+                    <td>0</td>
                 </tr>
                 <tr>
                     <td>4</td>
@@ -42,6 +45,7 @@
                     <td>4</td>
                     <td>2025-02-04</td>
                     <td>2025-02-18</td>
+                    <td>0</td>
                 </tr>
                 <tr>
                     <td>5</td>
@@ -49,6 +53,7 @@
                     <td>4</td>
                     <td>2025-02-04</td>
                     <td>2025-02-18</td>
+                    <td>0</td>
                 </tr>
                 <tr>
                     <td>6</td>
@@ -56,6 +61,7 @@
                     <td>4</td>
                     <td>2025-02-04</td>
                     <td>2025-02-18</td>
+                    <td>0</td>
                 </tr>
             </tbody>
             
@@ -71,6 +77,7 @@
                     <th>Patron ID</th>
                     <th>Checkout Date</th>
                     <th>Due Date</th>
+                    <th>Return Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -80,6 +87,7 @@
                     <td>1</td>
                     <td>2025-01-01</td>
                     <td>2025-01-07</td>
+                    <td>1</td>
                 </tr>
             </tbody>
             <!-- Rows for past checkouts will go here -->
@@ -87,16 +95,24 @@
         <h2>Add Checkout:</h2>
         <p>Note that checkouts are non-deletable transactions</p>
         <form method="post" action="#">
-            <label>Book (name populates ID under the surface): 
+            <label>Book Title (name populates ID under the surface): 
                 <select name="book_ID">
-                    <option value="1">Book 1 Title</option>
-                    <option value="2">Book 2 Title</option>
+                    <option value="1">Infinite Jest</option>
+                    <option value="2">The Necronomicon</option>
+                    <option value="3">Brief Interviews with Hideous Men</option>
+                    <option value="4">The Hobbit</option>
+                    <option value="5">The Lord of the Rings</option>
+                    <option value="6">1984</option>
+                    <option value="7">What if?</option>
+                    <option value="8">Hamlet</option>
                 </select>
             </label><br>
-            <label>Patron (name populates ID under the surface): 
+            <label>Patron Name (name populates ID under the surface): 
                 <select name="patron_ID">
                     <option value="1">Alice Smith</option>
-                    <option value="2">Bob jones</option>
+                    <option value="2">Bob Jones</option>
+                    <option value="3">Eve Johnson</option>
+                    <option value="4">Mallory Brown</option>
                 </select>
             </label><br>
             <label>Checkout Date: <input type="date" name="publishing_date"></label><br>
@@ -107,10 +123,14 @@
 
         <h2>Mark book as returned</h2>
         <p>This takes a given checkout event and toggles it to list the book as having been returned</p>
-        <label>Checkout (by id): 
+        <label>Checkout ID: 
             <select name="checkout_ID">
                 <option value="1">1</option>
                 <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
             </select>
         </label><br>
         <button type="submit">Accept Book</button>

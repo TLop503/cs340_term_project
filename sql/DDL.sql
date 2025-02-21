@@ -23,13 +23,13 @@ CREATE OR REPLACE TABLE Genres (
 CREATE OR REPLACE TABLE Books (
     book_ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     title VARCHAR(255) NOT NULL,
-    author_ID INT,
+    author_ID INT NULL,
     synopsis TEXT,
     audience ENUM('Youth', 'Middle-grade', 'YA', 'Adult', 'Misc'),
     language VARCHAR(255) NOT NULL,
     format ENUM('Hardcover', 'Paperback', 'Ebook', 'Audio', 'Large Print'),
     publishing_date DATE,
-    FOREIGN KEY (author_ID) REFERENCES Authors(author_ID) ON DELETE SET NULL
+    FOREIGN KEY (author_ID) REFERENCES Authors(author_ID) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
 -- Create Patrons Table
@@ -45,13 +45,13 @@ CREATE OR REPLACE TABLE Patrons (
 -- Create Checkouts Table
 CREATE OR REPLACE TABLE Checkouts (
     checkout_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    book_ID INT NOT NULL DEFAULT -1,
-    patron_ID INT NOT NULL DEFAULT -1,
+    book_ID INT NULL,
+    patron_ID INT NULL,
     checkout_date DATE NOT NULL,
     due_date DATE NOT NULL,
     is_returned tinyint NOT NULL DEFAULT 0,
-    FOREIGN KEY (book_ID) REFERENCES Books(book_ID) ON DELETE SET DEFAULT,
-    FOREIGN KEY (patron_ID) REFERENCES Patrons(patron_ID) ON DELETE SET DEFAULT
+    FOREIGN KEY (book_ID) REFERENCES Books(book_ID) ON DELETE SET NULL ON UPDATE CASCADE,
+    FOREIGN KEY (patron_ID) REFERENCES Patrons(patron_ID) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
 -- Create Book_Genres Table (intersection)
@@ -59,8 +59,8 @@ CREATE OR REPLACE TABLE Book_Genres (
     book_genre_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     book_ID INT NOT NULL,
     genre_ID INT NOT NULL,
-    FOREIGN KEY (book_ID) REFERENCES Books(book_ID) ON DELETE CASCADE,
-    FOREIGN KEY (genre_ID) REFERENCES Genres(genre_ID) ON DELETE RESTRICT
+    FOREIGN KEY (book_ID) REFERENCES Books(book_ID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (genre_ID) REFERENCES Genres(genre_ID) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- Example Data for Authors
@@ -86,7 +86,7 @@ INSERT INTO Genres (genre_name) VALUES
 -- Example Data for Books
 INSERT INTO Books (title, author_ID, synopsis, audience, language, format, publishing_date) VALUES
 ('Infinite Jest', 1, 'A postmodern novel about addiction and entertainment', 'Adult', 'English', 'Paperback', '1996-02-01'),
-('The Necronomicon', , '?????????????', 'Adult', 'Latin', 'Hardcover', '1606-06-06'),
+('The Necronomicon', NULL, '?????????????', 'Adult', 'Latin', 'Hardcover', '1606-06-06'),
 ('Brief Interviews with Hideous Men', 1, 'A collection of short stories', 'Adult', 'English', 'Paperback', '1999-05-01'),
 ('The Hobbit', 2, 'A high fantasy novel about a hobbit on a quest to reclaim a treasure', 'Middle-grade', 'English', 'Paperback', '1937-09-21'),
 ('The Lord of the Rings', 2, 'A high fantasy novel about a quest to destroy a powerful ring', 'Adult', 'English', 'Paperback', '1954-07-29'),
