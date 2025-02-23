@@ -1,7 +1,23 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for
+from flask_mysqldb import MySQL
+from dotenv import load_dotenv
+
+import os
+
 
 app = Flask(__name__)
 
+# setup env variables, including stuff loaded from .env
+load_dotenv()
+app.config['MYSQL_HOST'] = 'classmysql.engr.oregonstate.edu'
+app.config['MYSQL_USER'] = os.getenv('DBUSER')
+app.config['MYSQL_PASSWORD'] = os.getenv('PASSWD')
+app.config['MYSQL_DB'] = os.getenv('DBUSER')
+app.config['MYSQL_CURSORCLASS'] = "DictCursor"
+
+mysql = MySQL(app)
+
+print("DBUSER:", os.getenv("DBUSER"))
 # Routes
 # Index.html
 @app.route('/')
@@ -18,7 +34,21 @@ def books():
 
 @app.route('/genre')
 def genre():
-    return render_template('genre.html')
+    q = 'SELECT * FROM Genres'
+    c = mysql.connection.cursor()
+    c.execute(q)
+    results = c.fetchall()
+    return render_template('genre.html', genres=results)
+
+@app.route('/addGenre', methods=['POST'])
+def add_genre():
+    if request.method == 'POST':
+        genre_name = request.form['genre_name']
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT INTO Genres (genre_name) VALUES (%s);", (genre_name,))
+        mysql.connection.commit() # ensure our changes save
+        cur.close()
+        return redirect(url_for('genre')) # send user back to genre page
 
 @app.route('/patron')
 def patron():

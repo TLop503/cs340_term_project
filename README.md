@@ -6,6 +6,7 @@ Term project for Intro to Databases; A library management system
 - Check `ON DELETE` methods once implementation starts
 - I think there are too many updates that don't match the ones we picked for crud
 - delete authors > find user? why is it here
+- deduplication
 
 ## Useful HTML snippets:
 
