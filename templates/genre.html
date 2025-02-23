@@ -17,40 +17,12 @@
                     <th>Genre Name</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Plays</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Fantasy</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Dystopian</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>Cyberpunk</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>Postmodern</td>
-                </tr>
-                <tr>
-                    <td>6</td>
-                    <td>Surreal</td>
-                </tr>
-                <tr>
-                    <td>7</td>
-                    <td>Humor</td>
-                </tr>
-                <tr>
-                    <td>8</td>
-                    <td>Nonfiction</td>
-                </tr>
-            </tbody>
+            {% for genre in genres %}
+            <tr>
+                <td>{{ genre.genre_ID }}</td>
+                <td>{{ genre.genre_name }}</td>
+            </tr>
+            {% endfor %}
         </table>
 
         <h2>Add Genre</h2>
