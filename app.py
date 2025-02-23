@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from flask_mysqldb import MySQL
 from dotenv import load_dotenv
 
@@ -39,6 +39,16 @@ def genre():
     c.execute(q)
     results = c.fetchall()
     return render_template('genre.html', genres=results)
+
+@app.route('/addGenre', methods=['POST'])
+def add_genre():
+    if request.method == 'POST':
+        genre_name = request.form['genre_name']
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT INTO Genres (genre_name) VALUES (%s);", (genre_name,))
+        mysql.connection.commit() # ensure our changes save
+        cur.close()
+        return redirect(url_for('genre')) # send user back to genre page
 
 @app.route('/patron')
 def patron():
