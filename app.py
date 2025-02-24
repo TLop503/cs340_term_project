@@ -49,6 +49,16 @@ def add_genre():
         mysql.connection.commit() # ensure our changes save
         cur.close()
         return redirect(url_for('genre')) # send user back to genre page
+    
+@app.route('/remGenre', methods=['POST'])
+def rem_genre():
+    if request.method == 'POST':
+        genre_id = request.form['Genre_ID']
+        cur = mysql.connection.cursor()
+        cur.execute("DELETE FROM Genres WHERE genre_id=%s;", (genre_id,))
+        mysql.connection.commit() # ensure our changes save
+        cur.close()
+    return redirect(url_for('genre')) # send user back to genre page
 
 @app.route('/patron')
 def patron():

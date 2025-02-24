@@ -52,17 +52,12 @@
         <hr><br>
 
         <h2>Delete Genre</h2>
-        <form method="post" action="#">
-            <label>Genre ID:
+        <form method="post" action="remGenre">
+            <label>Genre:
                 <select name="Genre_ID">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
+                    {% for genre in genres %}
+                    <option value="{{ genre.genre_ID }}">{{ genre.genre_name }}</option>
+                    {% endfor %}
                 </select>
             </label><br>
             <button type="submit">Delete Genre</button>
