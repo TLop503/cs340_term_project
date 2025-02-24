@@ -21,47 +21,19 @@
                 </tr>
             </thead>
             <tbody>
+                {% for author in authors %}
                 <tr>
-                    <td>1</td>
-                    <td>David</td>
-                    <td>Foster Wallace</td>
-                    <td>An American author known for his complex and often postmodern novels.</td>
+                    <td>{{ author.author_ID }}</td>
+                    <td>{{ author.first_name }}</td>
+                    <td>{{ author.last_name }}</td>
+                    <td>{{ author.biography }}</td>
                 </tr>
-                <tr>
-                    <td>2</td>
-                    <td>J.R.R.</td>
-                    <td>Tolkien</td>
-                    <td>An English author known for his high fantasy novels.</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>George</td>
-                    <td>Orwell</td>
-                    <td>An English author known for his dystopian novels.</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>Randall</td>
-                    <td>Munroe</td>
-                    <td>An American author known for his webcomic XKCD and his science books.</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>William</td>
-                    <td>Shakespeare</td>
-                    <td>An English author known for his plays and poetry.</td>
-                </tr>
-                <tr>
-                    <td>6</td>
-                    <td>Bob</td>
-                    <td>Jones</td>
-                    <td>Local No Name CO (aspiring) author</td>
-                </tr>
+                {% endfor %}
             </tbody>
         </table>
 
         <h2>Add Author</h2>
-        <form method="post" action="#">
+        <form method="post" action="addAuthor">
             <label>First Name: <input type="text" name="first_name" required></label><br>
             <label>Last Name: <input type="text" name="last_name" required></label><br>
             <label>Biography: <textarea name="biography"></textarea></label><br>
@@ -70,34 +42,28 @@
         <hr><br>
 
         <h2>Edit Author</h2>
-        <form method="post" action="#">
+        <form method="post" action="editAuthor">
             <label>Author ID:
                 <select name="author_ID">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
+                    {% for author in authors %}
+                    <option value="{{ author.author_ID }}">{{ author.first_name }} {{ author.last_name }}</option>
+                    {% endfor %}
                 </select>
             </label><br>
-            <label>New First Name: <input type="text" name="first_name"></label><br>
-            <label>New Last Name: <input type="text" name="last_name"></label><br>
-            <label>Biography: <textarea name="biography"></textarea></label><br>
+            <label>New First Name: <input type="text" name="new_first_name"></label><br>
+            <label>New Last Name: <input type="text" name="new_last_name"></label><br>
+            <label>Biography: <textarea name="new_biography"></textarea></label><br>
             <button type="submit">Edit Author</button>
         </form>
         <hr><br> <!--what is this-->
 
         <h2>Delete Author</h2>
-        <form method="post" action="#">
+        <form method="post" action="remAuthor">
             <label>Author ID:
                 <select name="author_ID">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
+                    {% for author in authors %}
+                    <option value="{{ author.author_ID }}">{{ author.first_name }} {{ author.last_name }}</option>
+                    {% endfor %}
                 </select>
             </label><br>
             <button type="submit">Delete Author</button>

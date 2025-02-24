@@ -77,7 +77,47 @@ def patron():
 
 @app.route('/author')
 def author():
-    return render_template('author.html')
+    q = 'SELECT * FROM Authors'
+    c = mysql.connection.cursor()
+    c.execute(q)
+    results = c.fetchall()
+    return render_template('author.html', authors=results)
+
+@app.route('/addAuthor', methods=['POST'])
+def add_author():
+    if request.method == 'POST':
+        first_name = request.form['first_name']
+        last_name = request.form['last_name']
+        biography = request.form['biography']
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT INTO Authors (first_name, last_name, biography) VALUES (%s, %s, %s);", (first_name, last_name, biography))
+        mysql.connection.commit() # ensure our changes save
+        cur.close()
+        return redirect(url_for('author')) # send user back to author page
+    
+@app.route('/remAuthor', methods=['POST'])
+def rem_author():
+    if request.method == 'POST':
+        author_id = request.form['author_ID']
+        cur = mysql.connection.cursor()
+        cur.execute("DELETE FROM Authors WHERE author_ID=%s;", (author_id,))
+        mysql.connection.commit() # ensure our changes save
+        cur.close()
+    return redirect(url_for('author')) # send user back to author page
+
+@app.route('/editAuthor', methods=['POST'])
+def edit_author():
+    if request.method == 'POST':
+        author_id = request.form['author_ID']
+        new_first_name = request.form['new_first_name']
+        new_last_name = request.form['new_last_name']
+        new_biography = request.form['new_biography']
+        cur = mysql.connection.cursor()
+        cur.execute("UPDATE Authors SET first_name=%s, last_name=%s, biography=%s WHERE author_ID=%s;", (new_first_name, new_last_name, new_biography, author_id))
+        mysql.connection.commit() # ensure our changes save
+        cur.close()
+    return redirect(url_for('author')) # send user back to genre page
+
 
 @app.route('/book_genre')
 def book_genre():
