@@ -90,7 +90,7 @@ def add_author():
         last_name = request.form['last_name']
         biography = request.form['biography']
         cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO Authors (first_name, last_name, biography) VALUES (%s);", (first_name, last_name, biography))
+        cur.execute("INSERT INTO Authors (first_name, last_name, biography) VALUES (%s, %s, %s);", (first_name, last_name, biography))
         mysql.connection.commit() # ensure our changes save
         cur.close()
         return redirect(url_for('author')) # send user back to author page
@@ -109,11 +109,11 @@ def rem_author():
 def edit_author():
     if request.method == 'POST':
         author_id = request.form['author_ID']
-        new_fist_name = request.form['new_first_name']
+        new_first_name = request.form['new_first_name']
         new_last_name = request.form['new_last_name']
         new_biography = request.form['new_biography']
         cur = mysql.connection.cursor()
-        cur.execute("UPDATE Authors SET first_name=%s, last_name=%s, biography=%s WHERE author_id=%s;", (new_fist_name, new_last_name, new_biography, author_id))
+        cur.execute("UPDATE Authors SET first_name=%s, last_name=%s, biography=%s WHERE author_ID=%s;", (new_first_name, new_last_name, new_biography, author_id))
         mysql.connection.commit() # ensure our changes save
         cur.close()
     return redirect(url_for('author')) # send user back to genre page
