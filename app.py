@@ -81,7 +81,7 @@ def author():
     c = mysql.connection.cursor()
     c.execute(q)
     results = c.fetchall()
-    return render_template('authors.html', auhors=results)
+    return render_template('authors.html', authors=results)
 
 
 @app.route('/book_genre')
