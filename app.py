@@ -77,7 +77,12 @@ def patron():
 
 @app.route('/author')
 def author():
-    return render_template('author.html')
+    q = 'SELECT * FROM Authors'
+    c = mysql.connection.cursor()
+    c.execute(q)
+    results = c.fetchall()
+    return render_template('genre.html', genres=results)
+
 
 @app.route('/book_genre')
 def book_genre():
