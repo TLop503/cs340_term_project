@@ -113,7 +113,7 @@ def edit_author():
         new_last_name = request.form['new_last_name']
         new_biography = request.form['new_biography']
         cur = mysql.connection.cursor()
-        cur.execute("UPDATE Authors SET first_name=%s, last_name=%s, biography=%s WHERE author_id=%s;", (new_fist_name, new_fist_name, new_biography, author_id))
+        cur.execute("UPDATE Authors SET first_name=%s, last_name=%s, biography=%s WHERE author_id=%s;", (new_fist_name, new_last_name, new_biography, author_id))
         mysql.connection.commit() # ensure our changes save
         cur.close()
     return redirect(url_for('author')) # send user back to genre page
