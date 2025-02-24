@@ -49,6 +49,27 @@ def add_genre():
         mysql.connection.commit() # ensure our changes save
         cur.close()
         return redirect(url_for('genre')) # send user back to genre page
+    
+@app.route('/remGenre', methods=['POST'])
+def rem_genre():
+    if request.method == 'POST':
+        genre_id = request.form['Genre_ID']
+        cur = mysql.connection.cursor()
+        cur.execute("DELETE FROM Genres WHERE genre_id=%s;", (genre_id,))
+        mysql.connection.commit() # ensure our changes save
+        cur.close()
+    return redirect(url_for('genre')) # send user back to genre page
+
+@app.route('/editGenre', methods=['POST'])
+def edit_genre():
+    if request.method == 'POST':
+        genre_id = request.form['Genre_ID']
+        new_genre_name = request.form['new_genre_name']
+        cur = mysql.connection.cursor()
+        cur.execute("UPDATE Genres SET genre_name=%s WHERE genre_id=%s;", (new_genre_name, genre_id))
+        mysql.connection.commit() # ensure our changes save
+        cur.close()
+    return redirect(url_for('genre')) # send user back to genre page
 
 @app.route('/patron')
 def patron():
@@ -65,4 +86,4 @@ def book_genre():
 
 # Listener
 if __name__ == "__main__":
-    app.run(port=1740, debug=True)
+    app.run(port=1739, debug=True)
