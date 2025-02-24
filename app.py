@@ -60,6 +60,17 @@ def rem_genre():
         cur.close()
     return redirect(url_for('genre')) # send user back to genre page
 
+@app.route('/editGenre', methods=['POST'])
+def edit_genre():
+    if request.method == 'POST':
+        genre_id = request.form['Genre_ID']
+        new_genre_name = request.form['new_genre_name']
+        cur = mysql.connection.cursor()
+        cur.execute("UPDATE Genres SET genre_name=%s WHERE genre_id=%s;", (new_genre_name, genre_id))
+        mysql.connection.commit() # ensure our changes save
+        cur.close()
+    return redirect(url_for('genre')) # send user back to genre page
+
 @app.route('/patron')
 def patron():
     return render_template('patron.html')

@@ -33,20 +33,15 @@
         <hr><br>
 
         <h2>Edit Genre</h2>
-        <form method="post" action="#">
+        <form method="post" action="editGenre">
             <label>Genre ID:
-                <select name="genre_ID">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
+                <select name="Genre_ID">
+                    {% for genre in genres %}
+                    <option value="{{ genre.genre_ID }}">{{ genre.genre_name }}</option>
+                    {% endfor %}
                 </select>
             </label><br>
-            <label>New Name: <input type="text" name="genre_name" required></label><br>
+            <label>New Name: <input type="text" name="new_genre_name" required></label><br>
             <button type="submit">Edit Genre</button>
         </form>
         <hr><br>

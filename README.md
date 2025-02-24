@@ -7,6 +7,7 @@ Term project for Intro to Databases; A library management system
 - I think there are too many updates that don't match the ones we picked for crud
 - delete authors > find user? why is it here
 - deduplication
+- smart update stuff
 
 ## Useful HTML snippets:
 
@@ -24,11 +25,11 @@ Term project for Intro to Databases; A library management system
             <a href="books.html">Book Management</a>
             <a href="genre.html">Genres</a>
             <a href="account.html">Account Info</a>
-          </div> 
-        
+          </div>
+
         <h1>TITLE</h1>
         <p>Here you can do something</p>
-        
+
         <!--Book Table-->
         <table border="2">
             <tr>
