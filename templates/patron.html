@@ -17,44 +17,22 @@
                     <th>Patron ID</th>
                     <th>First Name</th>
                     <th>Last Name</th>
-                    <th>DOB</th>
-                    <th>Email</th>
+                    <th>Date of Birth</th>
+                    <th>Email Address</th>
                     <th>Phone Number</th>
                 </tr>
             </thead>
             <tbody>
+                {% for patron in patrons %}
                 <tr>
-                    <td>1</td>
-                    <td>Alice</td>
-                    <td>Smith</td>
-                    <td>1990-01-01</td>
-                    <td>alice@alice.com</td>
-                    <td>555-555-5555</td>
+                    <td>{{ patron.patron_ID}}</td>
+                    <td>{{ patron.first_name}}</td>
+                    <td>{{ patron.last_name}}</td>
+                    <td>{{ patron.date_of_birth}}</td>
+                    <td>{{ patron.email}}</td>
+                    <td>{{ patron.phone_number}}</td>
                 </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Bob</td>
-                    <td>Jones</td>
-                    <td>1980-02-02</td>
-                    <td>bob@bob.com</td>
-                    <td>555-555-5555</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Eve</td>
-                    <td>Johnson</td>
-                    <td>1970-03-03</td>
-                    <td>eve@nsa.gov</td>
-                    <td>555-555-5555</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>Mallory</td>
-                    <td>Brown</td>
-                    <td>1960-04-04</td>
-                    <td>mallory@localhost</td>
-                    <td>555-555-5555</td>
-                </tr>
+                {% endfor %}
             </tbody>
         </table>
 
@@ -71,13 +49,12 @@
         <hr><br>
         
         <h2>Edit Patron</h2>
-        <form method="post" action="#">
+        <form method="post" action="editPatron">
             <label>ID:
                 <select name="patron_ID">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
+                    {% for patron in patrons %}
+                    <option value="{{ patron.patron_ID}}">{{ patron.first_name }} {{ patron.last_name}}</option>
+                    {% endfor %}
                 </select>
             </label><br>
             <label>First Name: <input type="text" name="first_name" required></label><br>
@@ -93,10 +70,9 @@
         <form method="post" action="#">
             <label>ID:
                 <select name="patron_ID">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
+                    {% for patron in patrons %}
+                    <option value="{{ patron.patron_ID}}">{{ patron.first_name }} {{ patron.last_name}}</option>
+                    {% endfor %}
                 </select>
             </label><br>
             <button type="submit">Delete User</button>
