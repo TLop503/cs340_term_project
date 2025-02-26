@@ -138,8 +138,16 @@ def add_author():
         first_name = request.form['first_name']
         last_name = request.form['last_name']
         biography = request.form['biography']
+
         cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO Authors (first_name, last_name, biography) VALUES (%s, %s, %s);", (first_name, last_name, biography))
+
+        # account for NULL biography
+        if biography == "":
+            cur.execute("INSERT INTO Authors (first_name, last_name) VALUES (%s, %s);", (first_name, last_name))
+        # no NULL inputs
+        else:
+            cur.execute("INSERT INTO Authors (first_name, last_name, biography) VALUES (%s, %s, %s);", (first_name, last_name, biography))
+        
         mysql.connection.commit() # ensure our changes save
         cur.close()
         return redirect(url_for('author')) # send user back to author page
