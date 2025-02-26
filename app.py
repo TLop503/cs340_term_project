@@ -92,7 +92,20 @@ def add_patron():
         email = request.form['email']
         phone_number = request.form['phone_number']
         cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO Patrons (first_name, last_name, date_of_birth, email, phone_number) VALUES (%s, %s, %s, %s, %s);", (first_name, last_name, date_of_birth, email, phone_number))
+
+        # account for NULL email and phone_number
+        if email == "" and phone_number == "":
+            cur.execute("INSERT INTO Patrons (first_name, last_name, date_of_birth) VALUES (%s, %s, %s);", (first_name, last_name, date_of_birth))
+        # account for NULL email
+        if email == "":
+            cur.execute("INSERT INTO Patrons (first_name, last_name, date_of_birth, phone_number) VALUES (%s, %s, %s, %s);", (first_name, last_name, date_of_birth, phone_number))
+        # account for NULL phone_number
+        if phone_number == "":
+            cur.execute("INSERT INTO Patrons (first_name, last_name, date_of_birth, email) VALUES (%s, %s, %s, %s);", (first_name, last_name, date_of_birth, email))
+        # no NULL inputs
+        else:
+            cur.execute("INSERT INTO Patrons (first_name, last_name, date_of_birth, email, phone_number) VALUES (%s, %s, %s, %s, %s);", (first_name, last_name, date_of_birth, email, phone_number))
+        
         mysql.connection.commit()
         cur.close()
         return redirect(url_for('patron'))
@@ -107,6 +120,20 @@ def edit_patron():
         email = request.form['email']
         phone_number = request.form['phone_number']
         cur = mysql.connection.cursor()
+
+        # account for NULL email and phone_number
+        if email == "" and phone_number == "":
+            cur.execute("UPDATE Patrons SET first_name=%s, last_name=%s, date_of_birth=%s WHERE patron_ID=%s;", (first_name, last_name, date_of_birth, patron_ID))
+        # account for NULL email
+        if email == "":
+            cur.execute("UPDATE Patrons SET first_name=%s, last_name=%s, date_of_birth=%s, phone_number=%s WHERE patron_ID=%s;", (first_name, last_name, date_of_birth, phone_number, patron_ID))
+        # account for NULL phone_number
+        if phone_number == "":
+            cur.execute("UPDATE Patrons SET first_name=%s, last_name=%s, date_of_birth=%s, email=%s WHERE patron_ID=%s;", (first_name, last_name, date_of_birth, email, patron_ID))
+        # no NULL inputs
+        else:
+            cur.execute("UPDATE Patrons SET first_name=%s, last_name=%s, date_of_birth=%s, email=%s, phone_number=%s WHERE patron_ID=%s;", (first_name, last_name, date_of_birth, email, phone_number, patron_ID))
+    
         cur.execute("UPDATE Patrons SET first_name=%s, last_name=%s, date_of_birth=%s, email=%s, phone_number=%s WHERE patron_ID=%s;", (first_name, last_name, date_of_birth, email, phone_number, patron_ID))
         mysql.connection.commit() # ensure our changes save
         cur.close()
