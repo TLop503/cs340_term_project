@@ -170,7 +170,14 @@ def edit_author():
         new_last_name = request.form['new_last_name']
         new_biography = request.form['new_biography']
         cur = mysql.connection.cursor()
-        cur.execute("UPDATE Authors SET first_name=%s, last_name=%s, biography=%s WHERE author_ID=%s;", (new_first_name, new_last_name, new_biography, author_id))
+
+        # account for NULL biography
+        if new_biography == "":
+            cur.execute("UPDATE Authors SET first_name=%s, last_name=%s WHERE author_ID=%s;", (new_first_name, new_last_name, author_id))
+        # no NULL inputs
+        else:
+            cur.execute("UPDATE Authors SET first_name=%s, last_name=%s, biography=%s WHERE author_ID=%s;", (new_first_name, new_last_name, new_biography, author_id))
+        
         mysql.connection.commit() # ensure our changes save
         cur.close()
     return redirect(url_for('author')) # send user back to authors page
