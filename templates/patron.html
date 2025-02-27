@@ -37,8 +37,7 @@
         </table>
 
         <h2>Add Patron</h2>
-        <form method="post" action="#">
-            <label>Patron: <input type="text" name="patron" required></label><br>
+        <form method="post" action="addPatron">
             <label>First Name: <input type="text" name="first_name" required></label><br>
             <label>Last Name: <input type="text" name="last_name" required></label><br>
             <label>Date of Birth <input type="date" name="date_of_birth" required></label><br>
@@ -67,7 +66,7 @@
         <hr><br>
 
         <h2>Delete Patron</h2>
-        <form method="post" action="#">
+        <form method="post" action="remPatron">
             <label>ID:
                 <select name="patron_ID">
                     {% for patron in patrons %}

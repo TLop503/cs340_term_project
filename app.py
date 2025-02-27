@@ -32,8 +32,8 @@ def checkout():
 def books():
     return render_template('books.html')
 
-# Genres
 
+# Genres
 @app.route('/genre')
 def genre():
     q = 'SELECT * FROM Genres'
@@ -73,8 +73,8 @@ def edit_genre():
         cur.close()
     return redirect(url_for('genre')) # send user back to genre page
 
-# Patrons
 
+# Patrons
 @app.route('/patron')
 def patron():
     q = 'SELECT * FROM Patrons'
@@ -217,4 +217,4 @@ def book_genre():
 
 # Listener
 if __name__ == "__main__":
-    app.run(port=1739, debug=True)
+    app.run(port=1749, debug=True)
