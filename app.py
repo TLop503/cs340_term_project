@@ -32,8 +32,8 @@ def checkout():
 def books():
     return render_template('books.html')
 
-# Genres
 
+# Genres
 @app.route('/genre')
 def genre():
     q = 'SELECT * FROM Genres'
@@ -73,8 +73,8 @@ def edit_genre():
         cur.close()
     return redirect(url_for('genre')) # send user back to genre page
 
-# Patrons
 
+# Patrons
 @app.route('/patron')
 def patron():
     q = 'SELECT * FROM Patrons'
@@ -97,10 +97,10 @@ def add_patron():
         if email == "" and phone_number == "":
             cur.execute("INSERT INTO Patrons (first_name, last_name, date_of_birth) VALUES (%s, %s, %s);", (first_name, last_name, date_of_birth))
         # account for NULL email
-        if email == "":
+        elif email == "":
             cur.execute("INSERT INTO Patrons (first_name, last_name, date_of_birth, phone_number) VALUES (%s, %s, %s, %s);", (first_name, last_name, date_of_birth, phone_number))
         # account for NULL phone_number
-        if phone_number == "":
+        elif phone_number == "":
             cur.execute("INSERT INTO Patrons (first_name, last_name, date_of_birth, email) VALUES (%s, %s, %s, %s);", (first_name, last_name, date_of_birth, email))
         # no NULL inputs
         else:
@@ -125,10 +125,10 @@ def edit_patron():
         if email == "" and phone_number == "":
             cur.execute("UPDATE Patrons SET first_name=%s, last_name=%s, date_of_birth=%s WHERE patron_ID=%s;", (first_name, last_name, date_of_birth, patron_ID))
         # account for NULL email
-        if email == "":
+        elif email == "":
             cur.execute("UPDATE Patrons SET first_name=%s, last_name=%s, date_of_birth=%s, phone_number=%s WHERE patron_ID=%s;", (first_name, last_name, date_of_birth, phone_number, patron_ID))
         # account for NULL phone_number
-        if phone_number == "":
+        elif phone_number == "":
             cur.execute("UPDATE Patrons SET first_name=%s, last_name=%s, date_of_birth=%s, email=%s WHERE patron_ID=%s;", (first_name, last_name, date_of_birth, email, patron_ID))
         # no NULL inputs
         else:
@@ -149,8 +149,8 @@ def rem_patron():
         cur.close()
     return redirect(url_for('patron'))
 
-# Authors
 
+# Authors
 @app.route('/author')
 def author():
     q = 'SELECT * FROM Authors'
@@ -217,4 +217,4 @@ def book_genre():
 
 # Listener
 if __name__ == "__main__":
-    app.run(port=1739, debug=True)
+    app.run(port=1749, debug=True)
