@@ -144,7 +144,7 @@ def rem_patron():
     if request.method == 'POST':
         patron_ID = request.form['patron_ID']
         cur = mysql.connection.cursor()
-        cur.execute("DELETE FROM Patrons WHERE patron_ID=%s;", (patron_ID))
+        cur.execute("DELETE FROM Patrons WHERE patron_ID=%s;", (patron_ID,))
         mysql.connection.commit() # ensure our changes save
         cur.close()
     return redirect(url_for('patron'))
