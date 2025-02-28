@@ -43,13 +43,13 @@
             <label>Date of Birth <input type="date" name="date_of_birth" required></label><br>
             <label>Email Address<input type="email" name="email"></label><br>
             <label>Phone Number<input type="number" name="phone_number"></label><br>
-            <button type="submit">Add User</button>
+            <button type="submit">Add Patron</button>
         </form>
         <hr><br>
         
         <h2>Edit Patron</h2>
         <form method="post" action="editPatron">
-            <label>ID:
+            <label>Patron Name:
                 <select name="patron_ID">
                     {% for patron in patrons %}
                     <option value="{{ patron.patron_ID}}">{{ patron.first_name }} {{ patron.last_name}}</option>
@@ -61,20 +61,20 @@
             <label>Date of Birth <input type="date" name="date_of_birth" required></label><br>
             <label>Email Address<input type="email" name="email"></label><br>
             <label>Phone Number<input type="number" name="phone_number"></label><br>
-            <button type="submit">Add User</button>
+            <button type="submit">Edit Patron</button>
         </form>
         <hr><br>
 
         <h2>Delete Patron</h2>
         <form method="post" action="remPatron">
-            <label>ID:
+            <label>Patron Name:
                 <select name="patron_ID">
                     {% for patron in patrons %}
                     <option value="{{ patron.patron_ID}}">{{ patron.first_name }} {{ patron.last_name}}</option>
                     {% endfor %}
                 </select>
             </label><br>
-            <button type="submit">Delete User</button>
+            <button type="submit">Delete Patron</button>
         </form>
         <hr><br>
         {% endblock %}
