@@ -28,9 +28,109 @@ def home():
 def checkout():
     return render_template('checkout.html')
 
+# Books
 @app.route('/books')
 def books():
-    return render_template('books.html')
+    q = "SELECT book_ID, title, CONCAT(first_name, ' ', last_name) AS 'author',\
+        synopsis, audience, language, format, publishing_date FROM Books \
+        LEFT JOIN Authors ON Authors.author_ID = Books.author_ID"
+    c = mysql.connection.cursor()
+    c.execute(q)
+    results = c.fetchall()
+    return render_template('books.html', books=results)
+
+@app.route('/addBook', methods=['POST'])
+def add_book():
+    if request.method == 'POST':
+        author_ID = request.form['author_ID']
+        title = request.form['title']
+        synopsis = request.form['synopsis']
+        audience = request.form['audience']
+        format = request.form['format']
+        language = request.form['language']
+        publishing_date = request.form['publishing_date']
+        cur = mysql.connection.cursor()
+
+        # account for NULL author_ID, audience, publishing date
+        if author_ID == "" and audience == "" and publishing_date == "":
+            cur.execute("INSERT INTO Books (title, synopsis, format, language) VALUES (%s, %s, %s, %s);", (title, synopsis, format, language))
+        # account for NULL author_ID, audience
+        if author_ID == "" and audience == "":
+            cur.execute("INSERT INTO Books (title, synopsis, format, language, publishing_date) VALUES (%s, %s, %s, %s, %s);", (title, synopsis, format, language, publishing_date))
+        # account for NULL author_ID, publishing date
+        if author_ID == "" and publishing_date == "":
+            cur.execute("INSERT INTO Books (title, synopsis, audience, format, language) VALUES (%s, %s, %s, %s, %s);", (title, synopsis, audience, format, language))
+        # account for NULL audience, publishing date
+        if audience == "" and publishing_date == "":
+            cur.execute("INSERT INTO Books (author_ID, title, synopsis, format, language) VALUES (%s, %s, %s, %s, %s);", (author_ID, title, synopsis, format, language))
+        # account for NULL author_ID
+        if author_ID == "":
+            cur.execute("INSERT INTO Books (title, synopsis, audience, format, language, publishing_date) VALUES (%s, %s, %s, %s, %s, %s);", (title, synopsis, audience, format, language, publishing_date))
+        # account for NULL audience
+        if audience == "":
+            cur.execute("INSERT INTO Books (author_ID, title, synopsis, format, language, publishing_date) VALUES (%s, %s, %s, %s, %s, %s);", (author_ID, title, synopsis, format, language, publishing_date))
+        # account for NULL publishing date
+        if publishing_date == "":
+            cur.execute("INSERT INTO Books (author_ID, title, synopsis, audience, format, language) VALUES (%s, %s, %s, %s, %s, %s);", (author_ID, title, synopsis, audience, format, language))
+        # no NULL inputs
+        else:
+            cur.execute("INSERT INTO Books (author_ID, title, synopsis, audience, format, language, publishing_date) VALUES (%s, %s, %s, %s, %s, %s, %s);", (author_ID, title, synopsis, audience, format, language, publishing_date))
+
+        mysql.connection.commit()
+        cur.close()
+        return redirect(url_for('books'))
+
+@app.route('/editBook', methods=['POST'])
+def edit_book():
+    if request.method == 'POST':
+        book_ID = request.form['book_ID']
+        author_ID = request.form['author_ID']
+        title = request.form['title']
+        synopsis = request.form['synopsis']
+        audience = request.form['audience']
+        format = request.form['format']
+        language = request.form['language']
+        publishing_date = request.form['publishing_date']
+        cur = mysql.connection.cursor()
+
+        # account for NULL author_ID, audience, publishing date
+        if author_ID == "" and audience == "" and publishing_date == "":
+            cur.execute("UPDATE Books SET title=%s, synopsis=%s, format=%s, language=%s WHERE book_ID=%s;", (title, synopsis, format, language, book_ID))
+        # account for NULL author_ID, audience
+        if author_ID == "" and audience == "":
+            cur.execute("UPDATE Books SET title=%s, synopsis=%s, format=%s, language=%s, publishing_date=%s WHERE book_ID=%s;", (title, synopsis, format, language, publishing_date, book_ID))
+        # account for NULL author_ID, publishing date
+        if author_ID == "" and publishing_date == "":
+            cur.execute("UPDATE Books SET title=%s, synopsis=%s, audience=%s, format=%s, language=%s WHERE book_ID=%s;", (title, synopsis, audience, format, language, book_ID))
+        # account for NULL audience, publishing date
+        if audience == "" and publishing_date == "":
+            cur.execute("UPDATE Books SET author_ID=%s, title=%s, synopsis=%s, format=%s, language=%s WHERE book_ID=%s;", (author_ID, title, synopsis, format, language, book_ID))
+        # account for NULL author_ID
+        if author_ID == "":
+            cur.execute("UPDATE Books SET title=%s, synopsis=%s, audience=%s, format=%s, language=%s, publishing_date=%s WHERE book_ID=%s;", (title, synopsis, audience, format, language, publishing_date, book_ID))
+        # account for NULL audience
+        if audience == "":
+            cur.execute("UPDATE Books SET author_ID=%s, title=%s, synopsis=%s, format=%s, language=%s, publishing_date=%s WHERE book_ID=%s;", (author_ID, title, synopsis, format, language, publishing_date, book_ID))
+        # account for NULL publishing date
+        if publishing_date == "":
+            cur.execute("UPDATE Books SET author_ID=%s, title=%s, synopsis=%s, audience=%s, format=%s, language=%s WHERE book_ID=%s;", (author_ID, title, synopsis, audience, format, language, book_ID))
+        # no NULL inputs
+        else:
+            cur.execute("UPDATE Books SET author_ID=%s, title=%s, synopsis=%s, audience=%s, format=%s, language=%s, publishing_date=%s WHERE book_ID=%s;", (author_ID, title, synopsis, audience, format, language, publishing_date, book_ID))
+
+        mysql.connection.commit()
+        cur.close()
+        return redirect(url_for('books'))
+    
+@app.route('/remBook', methods=['POST'])
+def rem_book():
+    if request.method == 'POST':
+        book_ID = request.form['book_ID']
+        cur = mysql.connection.cursor()
+        cur.execute("DELETE FROM Books WHERE book_ID=%s;", (book_ID))
+        mysql.connection.commit()
+        cur.close()
+    return redirect(url_for('books'))
 
 
 # Genres

@@ -24,10 +24,10 @@ CREATE OR REPLACE TABLE Books (
     book_ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     title VARCHAR(255) NOT NULL,
     author_ID INT NULL,
-    synopsis TEXT,
+    synopsis TEXT NOT NULL,
     audience ENUM('Youth', 'Middle-grade', 'YA', 'Adult', 'Misc'),
     language VARCHAR(255) NOT NULL,
-    format ENUM('Hardcover', 'Paperback', 'Ebook', 'Audio', 'Large Print'),
+    format ENUM('Hardcover', 'Paperback', 'Ebook', 'Audio', 'Large Print') NOT NULL,
     publishing_date DATE,
     FOREIGN KEY (author_ID) REFERENCES Authors(author_ID) ON DELETE SET NULL ON UPDATE CASCADE
 );

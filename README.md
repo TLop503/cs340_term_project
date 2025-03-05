@@ -2,12 +2,17 @@
 Term project for Intro to Databases; A library management system
 
 ## Notes for later:
+- TODO books.format and books.synopsis is not NOT 
+- TODO remove cur.execute from end of editPatrons
+- NULL, change to reflect in documentation
 - Bools are known to be tricky, if needed swap to int or char (0/1, y/n)
 - Check `ON DELETE` methods once implementation starts
 - I think there are too many updates that don't match the ones we picked for crud
 - delete authors > find user? why is it here
 - deduplication
 - smart update stuff
+- fix the error pages
+- add credit for code adapted from class content
 
 ## Useful HTML snippets:
 

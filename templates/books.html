@@ -19,99 +19,36 @@
                     <th>Author</th>
                     <th>Synopsis</th>
                     <th>Audience</th>
-                    <th>Format</th>
                     <th>Language</th>
+                    <th>Format</th>
                     <th>Publishing Date</th>
                 </tr>
             </thead>
             <tbody>
+                {% for book in books %}
                 <tr>
-                    <td>1</td>
-                    <td>Infinite Jest</td>
-                    <td>David Foster Wallace</td>
-                    <td>A postmodern novel about addiction and entertainment</td>
-                    <td>Adult</td>
-                    <td>English</td>
-                    <td>Paperback</td>
-                    <td>1996-02-01</td>
+                    <td>{{ book.book_ID}}</td>
+                    <td>{{ book.title}}</td>
+                    <td>{{ book.author}}</td>
+                    <td>{{ book.synopsis}}</td>
+                    <td>{{ book.audience}}</td>
+                    <td>{{ book.language}}</td>
+                    <td>{{ book.format}}</td>
+                    <td>{{ book.publishing_date}}</td>
                 </tr>
-                <tr>
-                    <td>2</td>
-                    <td>The Necronomicon</td>
-                    <td>Null</td>
-                    <td>???????????</td>
-                    <td>Adult</td>
-                    <td>Latin</td>
-                    <td>Hardcover</td>
-                    <td>1606-06-06</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Brief Interviews with Hideous Men</td>
-                    <td>David Foster Wallace</td>
-                    <td>A collection of short stories</td>
-                    <td>Adult</td>
-                    <td>English</td>
-                    <td>Paperback</td>
-                    <td>1999-05-01</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>The Hobbit</td>
-                    <td>J.R.R. Tolkien</td>
-                    <td>A high fantasy novel about a hobbit on a quest to reclaim a treasure</td>
-                    <td>Middle-grade</td>
-                    <td>English</td>
-                    <td>Paperback</td>
-                    <td>1937-09-21</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>The Lord of the Rings</td>
-                    <td>J.R.R. Tolkien</td>
-                    <td>A high fantasy novel about a quest to destroy a powerful ring</td>
-                    <td>Adult</td>
-                    <td>English</td>
-                    <td>Paperback</td>
-                    <td>1954-07-29</td>
-                </tr>
-                <tr>
-                    <td>6</td>
-                    <td>1984</td>
-                    <td>George Orwell</td>
-                    <td>A dystopian novel about a totalitarian society</td>
-                    <td>Adult</td>
-                    <td>English</td>
-                    <td>Paperback</td>
-                    <td>1949-06-08</td>
-                </tr>
-                <tr>
-                    <td>7</td>
-                    <td>What if?</td>
-                    <td>Randall Munroe</td>
-                    <td>A collection of scientific answers to absurd hypothetical questions</td>
-                    <td>Middle-Grade</td>
-                    <td>English</td>
-                    <td>Paperback</td>
-                    <td>2014-09-02</td>
-                </tr>
-                <tr>
-                    <td>8</td>
-                    <td>Hamlet</td>
-                    <td>William Shakespeare</td>
-                    <td>A play about a prince who seeks revenge for his father</td>
-                    <td>Adult</td>
-                    <td>Ye Olde English</td>
-                    <td>Paperback</td>
-                    <td>1603-01-01</td>
-                </tr>
+                {% endfor %}
             </tbody>
         </table>
 
         <h2>Add Book</h2>
-        <form method="post" action="#">
+        <form method="post" action="addBook">
             <label>Title: <input type="text" name="title" required></label><br>
             <label>Author: 
+                <select name="author_ID">
+                    {% for author in authors %}
+                    <option value="{{ author.author_ID }}">{{ author.author_ID }} {{ author.first_name }} {{ author.last_name }}</option>
+                    {% endfor %}
+                </select>
                 <select name="author">
                     <option value="NULL">Unknown Author (NULL)</option>
                     <option value="1">Alice Smith</option>
@@ -120,7 +57,7 @@
                     <option value="4">Mallory Brown</option>
                 </select>
             </label><br>
-            <label>Synopsis: <textarea name="synopsis"></textarea></label><br>
+            <label>Synopsis: <textarea name="synopsis" required></textarea></label><br>
             <label>Audience:
                 <select name="audience">
                     <option value="Youth">Youth</option>
@@ -131,7 +68,7 @@
                 </select>
             </label><br>
             <label>Format:
-                <select name="format">
+                <select name="format" required>
                     <option value="Hardcover">Hardcover</option>
                     <option value="Paperback">Paperback</option>
                     <option value="Ebook">Ebook</option>
@@ -146,30 +83,23 @@
         <hr><br>
 
         <h2>Update Book</h2>
-        <form method="post" action="#">
+        <form method="post" action="editBook">
             <label>Book ID:
-                <select name="book_id">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
+                <select name="book_ID">
+                    {% for book in books %}
+                    <option value="{{ book.book_ID }}">{{ book.book_ID }} {{ book.book_title }}</option>
+                    {% endfor %}
                 </select>
             </label><br>
             <label>Title: <input type="text" name="title"></label><br>
             <label>Author: 
-                <select name="author">
-                    <option value="NULL">Unknown Author (NULL)</option>
-                    <option value="1">Alice Smith</option>
-                    <option value="2">Bob Jones</option>
-                    <option value="3">Eve Johnson</option>
-                    <option value="4">Mallory Brown</option>
+                <select name="author_ID">
+                    {% for author in authors %}
+                    <option value="{{ author.author_ID }}">{{ author.author_ID }} {{ author.first_name }} {{ author.last_name }}</option>
+                    {% endfor %}
                 </select>
             </label><br>
-            <label>Synopsis: <textarea name="synopsis"></textarea></label><br>
+            <label>Synopsis: <textarea name="synopsis" required></textarea></label><br>
             <label>Audience:
                 <select name="audience">
                     <option value="Youth">Youth</option>
@@ -180,7 +110,7 @@
                 </select>
             </label><br>
             <label>Format:
-                <select name="format">
+                <select name="format" required>
                     <option value="Hardcover">Hardcover</option>
                     <option value="Paperback">Paperback</option>
                     <option value="Ebook">Ebook</option>
@@ -196,17 +126,12 @@
 
 
         <h2>Delete Book</h2>
-        <form method="post" action="#">            
+        <form method="post" action="remBook">            
             <label>Book ID:
-                <select name="book_id">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
+                <select name="book_ID">
+                    {% for book in books %}
+                    <option value="{{ book.book_ID }}">{{ book.book_ID }} {{ book.book_title }}</option>
+                    {% endfor %}
                 </select>
             </label><br>
             <button type="submit">Delete Book</button>
