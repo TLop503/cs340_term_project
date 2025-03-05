@@ -234,7 +234,6 @@ def edit_patron():
         else:
             cur.execute("UPDATE Patrons SET first_name=%s, last_name=%s, date_of_birth=%s, email=%s, phone_number=%s WHERE patron_ID=%s;", (first_name, last_name, date_of_birth, email, phone_number, patron_ID))
     
-        cur.execute("UPDATE Patrons SET first_name=%s, last_name=%s, date_of_birth=%s, email=%s, phone_number=%s WHERE patron_ID=%s;", (first_name, last_name, date_of_birth, email, phone_number, patron_ID))
         mysql.connection.commit() # ensure our changes save
         cur.close()
     return redirect(url_for('patron')) # send user back to patrons page
