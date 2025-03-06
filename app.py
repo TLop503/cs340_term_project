@@ -31,13 +31,25 @@ def checkout():
 # Books
 @app.route('/books')
 def books():
-    q = "SELECT book_ID, title, CONCAT(first_name, ' ', last_name) AS 'author',\
-        synopsis, audience, language, format, publishing_date FROM Books \
-        LEFT JOIN Authors ON Authors.author_ID = Books.author_ID"
+    # Query for books
+    books_query = "SELECT book_ID, title, synopsis, audience, language, format, publishing_date, author_ID FROM Books"
+    
+    # Query for distinct authors
+    authors_query = "SELECT DISTINCT author_ID, first_name, last_name FROM Authors"
+    
     c = mysql.connection.cursor()
-    c.execute(q)
-    results = c.fetchall()
-    return render_template('books.html', books=results)
+    
+    # Execute book query
+    c.execute(books_query)
+    books_results = c.fetchall()
+    
+    # Execute distinct author query
+    c.execute(authors_query)
+    authors_results = c.fetchall()
+    
+    return render_template('books.html', books=books_results, authors=authors_results)
+
+
 
 @app.route('/addBook', methods=['POST'])
 def add_book():

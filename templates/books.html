@@ -44,19 +44,13 @@
         <form method="post" action="addBook">
             <label>Title: <input type="text" name="title" required></label><br>
             <label>Author: 
-                <select name="author_ID">
-                    {% for author in authors %}
-                    <option value="{{ author.author_ID }}">{{ author.author_ID }} {{ author.first_name }} {{ author.last_name }}</option>
-                    {% endfor %}
-                </select>
-                <select name="author">
-                    <option value="NULL">Unknown Author (NULL)</option>
-                    <option value="1">Alice Smith</option>
-                    <option value="2">Bob Jones</option>
-                    <option value="3">Eve Johnson</option>
-                    <option value="4">Mallory Brown</option>
-                </select>
-            </label><br>
+                <label>Author: 
+                    <select name="author_ID">
+                        {% for author in authors %}
+                        <option value="{{ author.author_ID }}">{{ author.first_name }} {{ author.last_name }}</option>
+                        {% endfor %}
+                    </select>
+                </label><br>                           
             <label>Synopsis: <textarea name="synopsis" required></textarea></label><br>
             <label>Audience:
                 <select name="audience">
@@ -95,7 +89,7 @@
             <label>Author: 
                 <select name="author_ID">
                     {% for author in authors %}
-                    <option value="{{ author.author_ID }}">{{ author.author_ID }} {{ author.first_name }} {{ author.last_name }}</option>
+                    <option value="{{ author.author_ID }}">{{ author.first_name }} {{ author.last_name }}</option>
                     {% endfor %}
                 </select>
             </label><br>
