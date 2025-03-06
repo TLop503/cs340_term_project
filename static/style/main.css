@@ -60,9 +60,10 @@ p, a, li {
 
 nav a {
     color:var(--accent-yellow);
-    margin-right: 2%;
+    margin-right: 10%;
     text-decoration: none;
     line-height: 1;
+
 }
 
 img {
@@ -76,4 +77,5 @@ img {
 
 .topnav a {
     color: var(--accent-yellow);
+    margin-right: 2%;
 }
