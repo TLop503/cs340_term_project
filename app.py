@@ -139,7 +139,7 @@ def rem_book():
     if request.method == 'POST':
         book_ID = request.form['book_ID']
         cur = mysql.connection.cursor()
-        cur.execute("DELETE FROM Books WHERE book_ID=%s;", (book_ID))
+        cur.execute("DELETE FROM Books WHERE book_ID=%s;", (book_ID,))
         mysql.connection.commit()
         cur.close()
     return redirect(url_for('books'))
