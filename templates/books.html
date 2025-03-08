@@ -79,10 +79,10 @@
 
         <h2>Update Book</h2>
         <form method="post" action="editBook">
-            <label>Book ID:
+            <label>Book:
                 <select name="book_ID">
                     {% for book in books %}
-                    <option value="{{ book.book_ID }}">{{ book.book_ID }} {{ book.book_title }}</option>
+                    <option value="{{ book.book_ID }}">{{ book.book_ID }} {{ book.title }}</option>
                     {% endfor %}
                 </select>
             </label><br>
@@ -91,7 +91,7 @@
                 <select name="author_ID">
                     <option value="">Unknown</option>
                     {% for author in authors %}
-                    <option value="{{ author.author_ID }}">{{ author.first_name }} {{ author.last_name }}</option>
+                    <option value="{{ author.author_ID }}">{{ author.author_ID }} {{ author.first_name }} {{ author.last_name }}</option>
                     {% endfor %}
                 </select>
             </label><br>
@@ -124,10 +124,10 @@
 
         <h2>Delete Book</h2>
         <form method="post" action="remBook">            
-            <label>Book ID:
+            <label>Book:
                 <select name="book_ID">
                     {% for book in books %}
-                    <option value="{{ book.book_ID }}">{{ book.book_ID }} {{ book.book_title }}</option>
+                    <option value="{{ book.book_ID }}">{{ book.book_ID }} {{ book.title }}</option>
                     {% endfor %}
                 </select>
             </label><br>
