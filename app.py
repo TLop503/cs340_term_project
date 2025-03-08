@@ -32,8 +32,10 @@ def checkout():
 @app.route('/books')
 def books():
     # Query for books
-    books_query = "SELECT book_ID, title, synopsis, audience, language, format, publishing_date, author_ID FROM Books"
-    
+    books_query = "SELECT book_ID, title, CONCAT(first_name, ' ', last_name) AS 'author',\
+        synopsis, audience, language, format, publishing_date FROM Books \
+        LEFT JOIN Authors ON Authors.author_ID = Books.author_ID"
+
     # Query for distinct authors
     authors_query = "SELECT DISTINCT author_ID, first_name, last_name FROM Authors"
     
