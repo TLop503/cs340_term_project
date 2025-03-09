@@ -43,7 +43,7 @@
 
         <h2>Edit Author</h2>
         <form method="post" action="editAuthor">
-            <label>Author ID:
+            <label>Author:
                 <select name="author_ID">
                     {% for author in authors %}
                     <option value="{{ author.author_ID }}">{{ author.author_ID }} {{ author.first_name }} {{ author.last_name }}</option>
@@ -59,7 +59,7 @@
 
         <h2>Delete Author</h2>
         <form method="post" action="remAuthor">
-            <label>Author ID:
+            <label>Author:
                 <select name="author_ID">
                     {% for author in authors %}
                     <option value="{{ author.author_ID }}">{{ author.author_ID }} {{ author.first_name }} {{ author.last_name }}</option>

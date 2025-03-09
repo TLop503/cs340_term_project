@@ -49,7 +49,7 @@
         
         <h2>Edit Patron</h2>
         <form method="post" action="editPatron">
-            <label>Patron Name:
+            <label>Patron:
                 <select name="patron_ID">
                     {% for patron in patrons %}
                     <option value="{{ patron.patron_ID}}">{{ patron.patron_ID }} {{ patron.first_name }} {{ patron.last_name}}</option>
@@ -67,7 +67,7 @@
 
         <h2>Delete Patron</h2>
         <form method="post" action="remPatron">
-            <label>Patron Name:
+            <label>Patron:
                 <select name="patron_ID">
                     {% for patron in patrons %}
                     <option value="{{ patron.patron_ID}}">{{ patron.patron_ID }} {{ patron.first_name }} {{ patron.last_name}}</option>
