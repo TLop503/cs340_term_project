@@ -24,9 +24,74 @@ print("DBUSER:", os.getenv("DBUSER"))
 def home():
     return render_template('index.html')
 
+# Checkouts
 @app.route('/checkout')
 def checkout():
-    return render_template('checkout.html')
+    # Query for active checkouts
+    active_checkouts_query = "SELECT checkout_ID, title AS 'book_title', \
+            CONCAT(first_name, ' ', last_name) AS 'patron_name', \
+            checkout_date, due_date, is_returned FROM Checkouts \
+            LEFT JOIN Books ON Books.book_ID = Checkouts.book_ID \
+            LEFT JOIN Patrons ON Patrons.patron_ID = Checkouts.patron_ID \
+            WHERE is_returned = 0"
+
+    past_checkouts_query = "SELECT checkout_ID, title AS 'book_title', \
+            CONCAT(first_name, ' ', last_name) AS 'patron_name', \
+            checkout_date, due_date, is_returned FROM Checkouts \
+            LEFT JOIN Books ON Books.book_ID = Checkouts.book_ID \
+            LEFT JOIN Patrons ON Patrons.patron_ID = Checkouts.patron_ID \
+            WHERE is_returned = 1"
+
+    # Query for Books IDs and titles
+    books_query = "SELECT book_ID, title FROM Books"
+    
+    # Query for Patron IDs and names
+    patron_query = "SELECT patron_ID, CONCAT(first_name, ' ', last_name) AS 'patron_name' FROM Patrons"
+
+    c = mysql.connection.cursor()
+
+    # Execute active checkout query
+    c.execute(active_checkouts_query)
+    active_checkouts_results = c.fetchall()
+
+    # Execute past checkout query
+    c.execute(past_checkouts_query)
+    past_checkouts_results = c.fetchall()
+
+    # Execute book query
+    c.execute(books_query)
+    books_results = c.fetchall()
+
+    # Execute patron query
+    c.execute(patron_query)
+    patrons_results = c.fetchall()
+
+    return render_template('checkout.html', active_checkouts=active_checkouts_results, past_checkouts=past_checkouts_results, books=books_results, patrons=patrons_results)
+
+@app.route('/addCheckout', methods=['POST'])
+def add_checkout():
+    if request.method == 'POST':
+        book_ID = request.form['book_ID']
+        patron_ID = request.form['patron_ID']
+        checkout_date = request.form['checkout_date']
+        due_date = request.form['due_date']
+        cur = mysql.connection.cursor()
+
+        cur.execute("INSERT INTO Checkouts (book_ID, patron_ID, checkout_date, due_date) VALUES (%s, %s, %s, %s,);", (book_ID, patron_ID, checkout_date, due_date))
+        mysql.connection.commit()
+        cur.close()
+        return redirect(url_for('checkouts'))
+    
+@app.route('/editCheckout', methods=['POST'])
+def edit_checkout():
+    if request.method == 'POST':
+        checkout_ID = request.form['checkout_ID']
+        cur = mysql.connection.cursor()
+
+        cur.execute("UPDATE Checkouts SET is_returned=1 WHERE checkout_ID=%s;", (checkout_ID,))
+        mysql.connection.commit()
+        cur.close()
+        return redirect(url_for('checkouts'))
 
 # Books
 @app.route('/books')

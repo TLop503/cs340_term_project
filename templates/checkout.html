@@ -23,49 +23,16 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>2</td>
-                    <td>Infinite Jest</td>
-                    <td>Alice Smith</td>
-                    <td>2025-02-01</td>
-                    <td>2025-02-15</td>
-                    <td>0</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Brief Interviews with Hideous Men</td>
-                    <td>Eve Johnson</td>
-                    <td>2025-02-03</td>
-                    <td>2025-02-17</td>
-                    <td>0</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>The Hobbit</td>
-                    <td>Mallory Brown</td>
-                    <td>2025-02-04</td>
-                    <td>2025-02-18</td>
-                    <td>0</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>Hamlet</td>
-                    <td>Mallory Brown</td>
-                    <td>2025-02-04</td>
-                    <td>2025-02-18</td>
-                    <td>0</td>
-                </tr>
-                <tr>
-                    <td>6</td>
-                    <td>The Pale King</td>
-                    <td>Mallory Brown</td>
-                    <td>2025-02-04</td>
-                    <td>2025-02-18</td>
-                    <td>0</td>
-                </tr>
-            </tbody>
-            
-            <!-- Rows for active checkouts will go here -->
+                {% for checkout in active_checkouts %}
+                    <tr>
+                        <td>{{ checkout.checkout_ID}}</td>
+                        <td>{{ checkout.book_title}}</td>
+                        <td>{{ checkout.patron_name}}</td>
+                        <td>{{ checkout.checkout_date}}</td>
+                        <td>{{ checkout.due_date}}</td>
+                        <td>{{ checkout.is_returned}}</td>
+                    </tr>
+                {% endfor %}
         </table>
 
         <h3>Past Checkouts</h3>
@@ -81,59 +48,52 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>The Hobbit</td>
-                    <td>Alice Smith</td>
-                    <td>2025-01-01</td>
-                    <td>2025-01-07</td>
-                    <td>1</td>
-                </tr>
+                {% for checkout in past_checkouts %}
+                    <tr>
+                        <td>{{ checkout.checkout_ID}}</td>
+                        <td>{{ checkout.book_title}}</td>
+                        <td>{{ checkout.patron_name}}</td>
+                        <td>{{ checkout.checkout_date}}</td>
+                        <td>{{ checkout.due_date}}</td>
+                        <td>{{ checkout.is_returned}}</td>
+                    </tr>
+                {% endfor %}
             </tbody>
-            <!-- Rows for past checkouts will go here -->
         </table>
+
         <h2>Add Checkout:</h2>
         <p>Note that checkouts are non-deletable transactions</p>
-        <form method="post" action="#">
-            <label>Book Title (name populates ID under the surface): 
+        <form method="post" action="addCheckout">
+            <label>Book Title: 
                 <select name="book_ID">
-                    <option value="1">Infinite Jest</option>
-                    <option value="2">The Necronomicon</option>
-                    <option value="3">Brief Interviews with Hideous Men</option>
-                    <option value="4">The Hobbit</option>
-                    <option value="5">The Lord of the Rings</option>
-                    <option value="6">1984</option>
-                    <option value="7">What if?</option>
-                    <option value="8">Hamlet</option>
+                    {% for book in books %}
+                    <option value="{{ book.book_ID}}">{{ book.book_ID}} {{ book.title }}</option>
+                    {% endfor %}
                 </select>
             </label><br>
-            <label>Patron Name (name populates ID under the surface): 
+            <label>Patron Name: 
                 <select name="patron_ID">
-                    <option value="1">Alice Smith</option>
-                    <option value="2">Bob Jones</option>
-                    <option value="3">Eve Johnson</option>
-                    <option value="4">Mallory Brown</option>
+                    {% for patron in patrons %}
+                    <option value="{{ patron.patron_ID}}">{{ patron.patron_ID }} {{ patron.first_name }} {{ patron.last_name}}</option>
+                    {% endfor %}
                 </select>
             </label><br>
-            <label>Checkout Date: <input type="date" name="publishing_date"></label><br>
-            <label>Due Date: <input type="date" name="publishing_date"></label><br>
+            <label>Checkout Date: <input type="date" name="checkout_date" required></label><br>
+            <label>Due Date: <input type="date" name="due_date" required></label><br>
             <button type="submit">Lend Book</button>
         </form>
         <hr><br>
 
         <h2>Mark book as returned</h2>
-        <p>This takes a given checkout event and toggles it to list the book as having been returned</p>
-        <label>Checkout ID: 
+        <p>This marks a currently checked out book as having been returned. This action is irreversible</p>
+        <label>Checkout: 
             <select name="checkout_ID">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
+                {% for checkout in active_checkouts %}
+                <option value="{{ checkout.checkout_ID}}">{{ checkout.checkout_ID}} {{ checkout.patron_name}}: {{ checkout.book_title}}</option>
+                {% endfor %}
             </select>
         </label><br>
-        <button type="submit">Accept Book</button>
+        <button type="submit">Return Book</button>
         <hr><br>
         {% endblock %}
     </body>
