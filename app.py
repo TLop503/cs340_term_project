@@ -321,10 +321,73 @@ def edit_author():
     return redirect(url_for('author')) # send user back to authors page
 
 
+# Book_Genres
 @app.route('/book_genre')
 def book_genre():
-    return render_template('book_genre.html')
+    # Query for Book_Genres
+    book_genres_query = "SELECT book_genre_ID, Books.title AS 'book_title', Genres.genre_name FROM Book_Genres \
+        LEFT JOIN Books ON Books.book_ID = Book_Genres.book_ID \
+        LEFT JOIN Genres ON Genres.genre_ID = Book_Genres.genre_ID"
+    
+    # Query for Books IDs and titles
+    books_query = "SELECT book_ID, title FROM Books"
+    
+    # Query for Genres IDs and names
+    genres_query = "SELECT genre_ID, genre_name FROM Genres"
 
+    c = mysql.connection.cursor()
+
+    # Execute book_genres query
+    c.execute(book_genres_query)
+    book_genres_results = c.fetchall()
+
+    # Execute books query
+    c.execute(books_query)
+    books_results = c.fetchall()
+
+    # Execute genres query
+    c.execute(genres_query)
+    genres_results = c.fetchall()
+
+    return render_template('book_genre.html', book_genres=book_genres_results, books=books_results, genres=genres_results)
+
+@app.route('/addBookGenre', methods=['POST'])
+def add_book_genre():
+    if request.method == 'POST':
+        book_ID = request.form['book_ID']
+        genre_ID = request.form['genre_ID']
+        
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT INTO Book_Genres (book_ID, genre_ID) VALUES (%s, %s,);", (book_ID, genre_ID,))
+
+        mysql.connection.commit()
+        cur.close()
+        return redirect(url_for('book_genre'))
+
+@app.route('/editBookGenre', methods=['POST'])
+def edit_book_genre():
+    if request.method == 'POST':
+        book_genre_ID = request.form['book_genre_ID']
+        book_ID = request.form['book_ID']
+        genre_ID = request.form['genre_ID']
+        
+        cur = mysql.connection.cursor()
+        cur.execute("UPDATE Book_Genres SET book_ID=%s, genre_ID=%s WHERE book_genre_ID=%s;", (book_ID, genre_ID, book_genre_ID,))
+
+        mysql.connection.commit()
+        cur.close()
+        return redirect(url_for('book_genre'))
+
+@app.route('/remBook', methods=['POST'])
+def rem_book_genre():
+    if request.method == 'POST':
+        book_genre_ID = request.form['book_genre_ID']
+        cur = mysql.connection.cursor()
+        cur.execute("DELETE FROM Book_Genres WHERE book_genre_ID=%s;", (book_genre_ID,))
+
+        mysql.connection.commit()
+        cur.close()
+        return redirect(url_for('book_genre'))
 
 # Listener
 if __name__ == "__main__":
