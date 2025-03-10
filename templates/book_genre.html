@@ -19,142 +19,69 @@
                 </tr>
             </thead>
             <tbody>
+                {% for book_genre in book_genres %}
                 <tr>
-                    <td>1</td>
-                    <td>Infinite Jest</td>
-                    <td>Postmodern</td>
+                    <td>{{ book_genre.book_genre_ID}}</td>
+                    <td>{{ book_genre.book_title}}</td>
+                    <td>{{ book_genre.genre_name}}</td>
                 </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Infinite Jest</td>
-                    <td>Humor</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>The Pale King</td>
-                    <td>Surreal</td>
-                </tr>
-                    <td>4</td>
-                    <td>Brief Interviews with Hideous Men</td>
-                    <td>Surreal</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>The Hobbit</td>
-                    <td>Fantasy</td>
-                </tr>
-                <tr>
-                    <td>6</td>
-                    <td>The Lord of the Rings</td>
-                    <td>Fantasy</td>
-                </tr>
-                <tr>
-                    <td>7</td>
-                    <td>1984</td>
-                    <td>Dystopian</td>
-                </tr>
-                <tr>
-                    <td>8</td>
-                    <td>What if?</td>
-                    <td>Nonfiction</td>
-                </tr>
-                <tr>
-                    <td>9</td>
-                    <td>Hamlet</td>
-                    <td>Plays</td>
-                </tr>
+                {% endfor %}
             </tbody>
             <!-- Rows for book-genre mappings will go here -->
         </table>
 
         <h2>Add Book Genre</h2>
-        <form method="post" action="#">
+        <form method="post" action="addBookGenre">
             <label>Book Title: 
                 <select name="book_ID">
-                    <option value="1">Infinite Jest</option>
-                    <option value="2">The Necronomicon</option>
-                    <option value="3">Brief Interviews with Hideous Men</option>
-                    <option value="4">The Hobbit</option>
-                    <option value="5">The Lord of the Rings</option>
-                    <option value="6">1984</option>
-                    <option value="7">What if?</option>
-                    <option value="8">Hamlet</option>
-                    <!-- Options for book titles will go here -->
+                    {% for book in books %}
+                    <option value="{{ book.book_ID}}">{{ book.book_ID}} {{ book.title }}</option>
+                    {% endfor %}
                 </select>
             </label><br>
             <label>Genre Name: 
                 <select name="genre_ID">
-                    <option value="1">Plays</option>
-                    <option value="2">Fantasy</option>
-                    <option value="3">Dystopain</option>
-                    <option value="4">Cyberpunk</option>
-                    <option value="5">Postmodern</option>
-                    <option value="6">Surreal</option>
-                    <option value="7">Humor</option>
-                    <option value="8">Nonfiction</option>
-                    <!-- Options for genre names will go here -->
+                    {% for genre in genres %}
+                    <option value="{{ genre.genre_ID}}">{{ genre.genre_ID}} {{genre.genre_name}}</option>
+                    {% endfor %}
                 </select>
             </label><br>
             <button type="submit">Add Mapping</button>
         </form>
 
-        <h2>Edit Book Genre</h2>
-        <form method="post" action="#">
-            <label>Book Genre ID: 
+        <h2>Update Book Genre</h2>
+        <form method="post" action="editBookGenre">
+            <label>Book Genre: 
                 <select name="book_genre_ID">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
+                    {% for book_genre in book_genres %}
+                        <option value="{{ book_genre.book_genre_ID}}">{{ book_genre.book_genre_ID}} {{ book_genre.book_title}}: {{book_genre.genre_name}}</option>
+                    {% endfor %}
                 </select>
             </label><br>
             <label>Book Title: 
                 <select name="book_ID">
-                    <option value="1">Infinite Jest</option>
-                    <option value="2">The Necronomicon</option>
-                    <option value="3">Brief Interviews with Hideous Men</option>
-                    <option value="4">The Hobbit</option>
-                    <option value="5">The Lord of the Rings</option>
-                    <option value="6">1984</option>
-                    <option value="7">What if?</option>
-                    <option value="8">Hamlet</option>
-                    <!-- Options for book titles will go here -->
+                    {% for book in books %}
+                    <option value="{{ book.book_ID}}">{{ book.book_ID}} {{ book.title }}</option>
+                    {% endfor %}
                 </select>
             </label><br>
             <label>Genre Name: 
                 <select name="genre_ID">
-                    <option value="1">Plays</option>
-                    <option value="2">Fantasy</option>
-                    <option value="3">Dystopain</option>
-                    <option value="4">Cyberpunk</option>
-                    <option value="5">Postmodern</option>
-                    <option value="6">Surreal</option>
-                    <option value="7">Humor</option>
-                    <option value="8">Nonfiction</option>
-                    <!-- Options for genre names will go here -->
+                    {% for genre in genres %}
+                    <option value="{{ genre.genre_ID}}">{{ genre.genre_ID}} {{genre.genre_name}}</option>
+                    {% endfor %}
                 </select>
             </label><br>
             <button type="submit">Edit Book Genre</button>
         </form>
 
         <h2>Delete Genre</h2>
-        <form method="post" action="#">
+        <form method="post" action="remBookGenre">
             <label>Book Genre:
                 <select name="book_genre_ID">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
+                    {% for book_genre in book_genres %}
+                    <option value="{{ book_genre.book_genre_ID}}">{{ book_genre.book_genre_ID}} {{ book_genre.book_title}}: {{book_genre.genre_name}}</option>
+                    {% endfor %}
                 </select>
             </label><br>
             <button type="submit">Delete Book Genre</button>

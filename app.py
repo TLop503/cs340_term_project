@@ -24,15 +24,84 @@ print("DBUSER:", os.getenv("DBUSER"))
 def home():
     return render_template('index.html')
 
+# Checkouts
 @app.route('/checkout')
 def checkout():
-    return render_template('checkout.html')
+    # Query for active checkouts
+    active_checkouts_query = "SELECT checkout_ID, title AS 'book_title', \
+            CONCAT(first_name, ' ', last_name) AS 'patron_name', \
+            checkout_date, due_date, is_returned FROM Checkouts \
+            LEFT JOIN Books ON Books.book_ID = Checkouts.book_ID \
+            LEFT JOIN Patrons ON Patrons.patron_ID = Checkouts.patron_ID \
+            WHERE is_returned = 0"
+
+    past_checkouts_query = "SELECT checkout_ID, title AS 'book_title', \
+            CONCAT(first_name, ' ', last_name) AS 'patron_name', \
+            checkout_date, due_date, is_returned FROM Checkouts \
+            LEFT JOIN Books ON Books.book_ID = Checkouts.book_ID \
+            LEFT JOIN Patrons ON Patrons.patron_ID = Checkouts.patron_ID \
+            WHERE is_returned = 1"
+
+    # Query for Books IDs and titles
+    books_query = "SELECT book_ID, title FROM Books WHERE book_ID NOT IN \
+            (SELECT book_ID FROM Checkouts WHERE is_returned = 0);"
+    
+    # Query for Patron IDs and names
+    patron_query = "SELECT patron_ID, CONCAT(first_name, ' ', last_name) AS 'patron_name' FROM Patrons"
+
+    c = mysql.connection.cursor()
+
+    # Execute active checkout query
+    c.execute(active_checkouts_query)
+    active_checkouts_results = c.fetchall()
+
+    # Execute past checkout query
+    c.execute(past_checkouts_query)
+    past_checkouts_results = c.fetchall()
+
+    # Execute book query
+    c.execute(books_query)
+    books_results = c.fetchall()
+
+    # Execute patron query
+    c.execute(patron_query)
+    patrons_results = c.fetchall()
+
+    return render_template('checkout.html', active_checkouts=active_checkouts_results, past_checkouts=past_checkouts_results, books=books_results, patrons=patrons_results)
+
+@app.route('/addCheckout', methods=['POST'])
+def add_checkout():
+    if request.method == 'POST':
+        print(request.form)
+        book_ID = request.form['book_ID']
+        patron_ID = request.form['patron_ID']
+        checkout_date = request.form['checkout_date']
+        due_date = request.form['due_date']
+        cur = mysql.connection.cursor()
+
+        cur.execute("INSERT INTO Checkouts (book_ID, patron_ID, checkout_date, due_date) VALUES (%s, %s, %s, %s);", (book_ID, patron_ID, checkout_date, due_date))
+        mysql.connection.commit()
+        cur.close()
+        return redirect(url_for('checkout'))
+    
+@app.route('/editCheckout', methods=['POST'])
+def edit_checkout():
+    if request.method == 'POST':
+        checkout_ID = request.form['checkout_ID']
+        cur = mysql.connection.cursor()
+
+        cur.execute("UPDATE Checkouts SET is_returned=1 WHERE checkout_ID=%s;", (checkout_ID,))
+        mysql.connection.commit()
+        cur.close()
+        return redirect(url_for('checkout'))
 
 # Books
 @app.route('/books')
 def books():
     # Query for books
-    books_query = "SELECT book_ID, title, synopsis, audience, language, format, publishing_date, author_ID FROM Books"
+    books_query = "SELECT book_ID, title, CONCAT(first_name, ' ', last_name) AS 'author',\
+        synopsis, audience, language, format, publishing_date FROM Books \
+        LEFT JOIN Authors ON Authors.author_ID = Books.author_ID"
     
     # Query for distinct authors
     authors_query = "SELECT DISTINCT author_ID, first_name, last_name FROM Authors"
@@ -321,10 +390,73 @@ def edit_author():
     return redirect(url_for('author')) # send user back to authors page
 
 
+# Book_Genres
 @app.route('/book_genre')
 def book_genre():
-    return render_template('book_genre.html')
+    # Query for Book_Genres
+    book_genres_query = "SELECT book_genre_ID, Books.title AS 'book_title', Genres.genre_name FROM Book_Genres \
+        LEFT JOIN Books ON Books.book_ID = Book_Genres.book_ID \
+        LEFT JOIN Genres ON Genres.genre_ID = Book_Genres.genre_ID"
+    
+    # Query for Books IDs and titles
+    books_query = "SELECT book_ID, title FROM Books"
+    
+    # Query for Genres IDs and names
+    genres_query = "SELECT genre_ID, genre_name FROM Genres"
 
+    c = mysql.connection.cursor()
+
+    # Execute book_genres query
+    c.execute(book_genres_query)
+    book_genres_results = c.fetchall()
+
+    # Execute books query
+    c.execute(books_query)
+    books_results = c.fetchall()
+
+    # Execute genres query
+    c.execute(genres_query)
+    genres_results = c.fetchall()
+
+    return render_template('book_genre.html', book_genres=book_genres_results, books=books_results, genres=genres_results)
+
+@app.route('/addBookGenre', methods=['POST'])
+def add_book_genre():
+    if request.method == 'POST':
+        book_ID = request.form['book_ID']
+        genre_ID = request.form['genre_ID']
+        
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT INTO Book_Genres (book_ID, genre_ID) VALUES (%s, %s);", (book_ID, genre_ID))
+
+        mysql.connection.commit()
+        cur.close()
+        return redirect(url_for('book_genre'))
+
+@app.route('/editBookGenre', methods=['POST'])
+def edit_book_genre():
+    if request.method == 'POST':
+        book_genre_ID = request.form['book_genre_ID']
+        book_ID = request.form['book_ID']
+        genre_ID = request.form['genre_ID']
+        
+        cur = mysql.connection.cursor()
+        cur.execute("UPDATE Book_Genres SET book_ID=%s, genre_ID=%s WHERE book_genre_ID=%s;", (book_ID, genre_ID, book_genre_ID,))
+
+        mysql.connection.commit()
+        cur.close()
+        return redirect(url_for('book_genre'))
+
+@app.route('/remBookGenre', methods=['POST'])
+def rem_book_genre():
+    if request.method == 'POST':
+        book_genre_ID = request.form['book_genre_ID']
+        cur = mysql.connection.cursor()
+        cur.execute("DELETE FROM Book_Genres WHERE book_genre_ID=%s;", (book_genre_ID,))
+
+        mysql.connection.commit()
+        cur.close()
+        return redirect(url_for('book_genre'))
 
 # Listener
 if __name__ == "__main__":
