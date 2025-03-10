@@ -34,7 +34,7 @@
 
         <h2>Edit Genre</h2>
         <form method="post" action="editGenre">
-            <label>Genre ID:
+            <label>Genre:
                 <select name="Genre_ID">
                     {% for genre in genres %}
                     <option value="{{ genre.genre_ID }}">{{ genre.genre_ID }} {{ genre.genre_name }}</option>
