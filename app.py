@@ -43,7 +43,8 @@ def checkout():
             WHERE is_returned = 1"
 
     # Query for Books IDs and titles
-    books_query = "SELECT book_ID, title FROM Books"
+    books_query = "SELECT book_ID, title FROM Books WHERE book_ID NOT IN \
+            (SELECT book_ID FROM Checkouts WHERE is_returned = 0);"
     
     # Query for Patron IDs and names
     patron_query = "SELECT patron_ID, CONCAT(first_name, ' ', last_name) AS 'patron_name' FROM Patrons"
