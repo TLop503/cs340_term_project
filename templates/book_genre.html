@@ -79,10 +79,9 @@
         <form method="post" action="remBookGenre">
             <label>Book Genre:
                 <select name="book_genre_ID">
-                    <select name="book_ID">
-                        {% for book in books %}
-                        <option value="{{ book.book_ID}}">{{ book.book_ID}} {{ book.title }}</option>
-                        {% endfor %}
+                    {% for book_genre in book_genres %}
+                    <option value="{{ book_genre.book_genre_ID}}">{{ book_genre.book_genre_ID}} {{ book_genre.book_title}}: {{book_genre.genre_name}}</option>
+                    {% endfor %}
                 </select>
             </label><br>
             <button type="submit">Delete Book Genre</button>

@@ -426,7 +426,7 @@ def add_book_genre():
         genre_ID = request.form['genre_ID']
         
         cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO Book_Genres (book_ID, genre_ID) VALUES (%s, %s,);", (book_ID, genre_ID,))
+        cur.execute("INSERT INTO Book_Genres (book_ID, genre_ID) VALUES (%s, %s);", (book_ID, genre_ID))
 
         mysql.connection.commit()
         cur.close()
@@ -446,7 +446,7 @@ def edit_book_genre():
         cur.close()
         return redirect(url_for('book_genre'))
 
-@app.route('/remBook', methods=['POST'])
+@app.route('/remBookGenre', methods=['POST'])
 def rem_book_genre():
     if request.method == 'POST':
         book_genre_ID = request.form['book_genre_ID']
