@@ -74,7 +74,7 @@
             <label>Patron Name: 
                 <select name="patron_ID">
                     {% for patron in patrons %}
-                    <option value="{{ patron.patron_ID}}">{{ patron.patron_ID }} {{ patron.first_name }} {{ patron.last_name}}</option>
+                    <option value="{{ patron.patron_ID}}">{{ patron.patron_ID }} {{ patron.patron_name }}</option>
                     {% endfor %}
                 </select>
             </label><br>
@@ -86,14 +86,16 @@
 
         <h2>Mark Book as Returned</h2>
         <p>This marks a currently checked out book as having been returned. This action is irreversible</p>
-        <label>Checkout: 
-            <select name="checkout_ID">
-                {% for checkout in active_checkouts %}
-                <option value="{{ checkout.checkout_ID}}">{{ checkout.checkout_ID}} {{ checkout.patron_name}}: {{ checkout.book_title}}</option>
-                {% endfor %}
-            </select>
-        </label><br>
-        <button type="submit">Return Book</button>
+        <form method="post" action="editCheckout">
+            <label>Checkout: 
+                <select name="checkout_ID">
+                    {% for checkout in active_checkouts %}
+                    <option value="{{ checkout.checkout_ID}}">{{ checkout.checkout_ID}} {{ checkout.patron_name}}: {{ checkout.book_title}}</option>
+                    {% endfor %}
+                </select>
+            </label><br>
+            <button type="submit">Return Book</button>
+        </form>
         <hr><br>
         {% endblock %}
     </body>

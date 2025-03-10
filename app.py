@@ -71,16 +71,17 @@ def checkout():
 @app.route('/addCheckout', methods=['POST'])
 def add_checkout():
     if request.method == 'POST':
+        print(request.form)
         book_ID = request.form['book_ID']
         patron_ID = request.form['patron_ID']
         checkout_date = request.form['checkout_date']
         due_date = request.form['due_date']
         cur = mysql.connection.cursor()
 
-        cur.execute("INSERT INTO Checkouts (book_ID, patron_ID, checkout_date, due_date) VALUES (%s, %s, %s, %s,);", (book_ID, patron_ID, checkout_date, due_date))
+        cur.execute("INSERT INTO Checkouts (book_ID, patron_ID, checkout_date, due_date) VALUES (%s, %s, %s, %s);", (book_ID, patron_ID, checkout_date, due_date))
         mysql.connection.commit()
         cur.close()
-        return redirect(url_for('checkouts'))
+        return redirect(url_for('checkout'))
     
 @app.route('/editCheckout', methods=['POST'])
 def edit_checkout():
@@ -91,7 +92,7 @@ def edit_checkout():
         cur.execute("UPDATE Checkouts SET is_returned=1 WHERE checkout_ID=%s;", (checkout_ID,))
         mysql.connection.commit()
         cur.close()
-        return redirect(url_for('checkouts'))
+        return redirect(url_for('checkout'))
 
 # Books
 @app.route('/books')
