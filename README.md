@@ -6,6 +6,7 @@ Term project for Intro to Databases; A library management system
 - TODO make Checkouts Read tables the same width
 - TODO addmore info to home page
 - TODO fix internal server error
+- might run into issues if for add Checkout book drop down if all books are currently checked out
 - Check `ON DELETE` methods once implementation starts
 - I think there are too many updates that don't match the ones we picked for crud
 - delete authors > find user? why is it here
