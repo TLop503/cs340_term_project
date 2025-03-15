@@ -6,8 +6,57 @@
     <body>
         {% include 'base.html.jinja' %}
         {% block content %}
-        <h1>Welcome to the No Name CO Library Management System!</h1>
+        <h1 align="center">Welcome to the No Name CO</h1>
+        <h1 align="center">Management System!</h1>
         <p>Here you can update our inventory of books, set up and edit user accounts, and help patrons check out.</p>
+        
+        <h2>Info About Each Page</h2>
+        <table border="2">
+            <thead>
+                <tr>
+                    <th>Page</th>
+                    <th>Description</th>
+                    <th>CRUD Options</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tr>
+                <td>Checkout!</td>
+                <td>Manage Books that are checked out or returned by Patrons</td>
+                <td>Add/Create, View/Read, and Edit/Update to indicate a return</td>
+                <td>Checkouts are non-deletable</td>
+            </tr>
+            <tr>
+                <td>Book Manager</td>
+                <td>Manage the inventory of Books</td>
+                <td>Add/Create, View/Read, Edit/Update, and Delete</td>
+                <td>Author is a NULLable Foriegn Key attribute</td>
+            </tr>
+            <tr>
+                <td>Genres</td>
+                <td>Manage the inventory of Genres</td>
+                <td>Add/Create, View/Read, Edit/Update, and Delete</td>
+                <td>You cannot delete a Genre if it is part of a Book-Genre Mapping</td>
+            </tr>
+            <tr>
+                <td>Patron Info</td>
+                <td>Manage the library's Patrons</td>
+                <td>Add/Create, View/Read, Edit/Update, and Delete</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Authors</td>
+                <td>Manage the Authors who wrote our Books</td>
+                <td>Add/Create, View/Read, Edit/Update, and Delete</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Book-Genre Mapping</td>
+                <td>Manage the categorization of Books by Genre</td>
+                <td>Add/Create, View/Read, Edit/Update, and Delete</td>
+                <td>This is the M:N Update and Delete</td>
+            </tr>
+        </table>        
         {% endblock %}
     </body>
 </html>
