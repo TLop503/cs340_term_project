@@ -217,11 +217,21 @@ def rem_book():
 # Genres
 @app.route('/genre')
 def genre():
-    q = 'SELECT * FROM Genres'
+    all_genres_query = 'SELECT * FROM Genres'
+    unused_genres_query = 'SELECT * FROM Genres WHERE genre_ID NOT IN \
+            (SELECT genre_ID FROM Book_Genres)'
+
     c = mysql.connection.cursor()
-    c.execute(q)
-    results = c.fetchall()
-    return render_template('genre.html', genres=results)
+
+    # Execute all genres query
+    c.execute(all_genres_query)
+    all_genres_results = c.fetchall()
+
+    # Execute unused genres query
+    c.execute(unused_genres_query)
+    unused_genres_results = c.fetchall()
+
+    return render_template('genre.html', genres=all_genres_results, unused_genres=unused_genres_results)
 
 @app.route('/addGenre', methods=['POST'])
 def add_genre():
