@@ -25,9 +25,6 @@
     - make sure its well commented
     - check that all tables have appropriate CASCADE operatoins
     - double check that the final version can import to phpMyAdmin
-- DML
-    - update to match website
-    - make sure it is well commented
 - Books.html
     - make note that author can be null
 - Check that website code is well commented

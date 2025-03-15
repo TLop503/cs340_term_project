@@ -1,5 +1,5 @@
 -- In all the below queries the colon : character is used to denote a
--- variables that will have data from the backend programming language
+-- variables that will have data from input on the website
 
 -- AUTHORS
     -- READ
