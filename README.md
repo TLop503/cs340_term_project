@@ -12,8 +12,15 @@ Term project for Intro to Databases; A library management system
 - delete authors > find user? why is it here
 - deduplication
 - smart update stuff
-- fix the error pages
-- add credit for code adapted from class content
+
+## Citations
+Citation for the following function:
+Date: 3/15/2025
+Based on and adapted from `gkochera`
+I used the given skeleton code from the assignment description to get the bare-bones
+flask set up, and then heavily edited the src to include env vars instead of plaintext passwords, as well
+as to execute all of the queries and endpoints we needed for this project.
+Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app
 
 ## Useful HTML snippets:
 
