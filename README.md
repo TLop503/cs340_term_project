@@ -2,18 +2,23 @@
 Term project for Intro to Databases; A library management system
 
 ## Notes for later:
-- TODO add notes about code adapted from course examples
 - TODO make Checkouts Read tables the same width
 - TODO addmore info to home page
-- TODO fix internal server error
 - might run into issues if for add Checkout book drop down if all books are currently checked out
 - Check `ON DELETE` methods once implementation starts
 - I think there are too many updates that don't match the ones we picked for crud
 - delete authors > find user? why is it here
 - deduplication
 - smart update stuff
-- fix the error pages
-- add credit for code adapted from class content
+
+## Citations
+Citation for the following function:
+Date: 3/15/2025
+Based on and adapted from `gkochera`
+I used the given skeleton code from the assignment description to get the bare-bones
+flask set up, and then heavily edited the src to include env vars instead of plaintext passwords, as well
+as to execute all of the queries and endpoints we needed for this project.
+Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app
 
 ## Useful HTML snippets:
 
