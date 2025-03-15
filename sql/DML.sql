@@ -71,7 +71,6 @@
     DELETE FROM Book_Genres WHERE book_genre_ID=:book_genre_ID_input;
 
 
-
 -- CHECKOUTS
     -- READ(s)
         -- Currently checked out books
@@ -93,7 +92,7 @@
     -- Populate book_ID FK drop down (books not currently checked out)
     SELECT book_ID, title 
         FROM Books 
-        WHERE book_ID NOT IN (SELECT book_ID FROM Checkouts WHERE is_returned = 0);
+        WHERE book_ID NOT IN (SELECT book_ID FROM Checkouts WHERE is_returned = 0 and book_ID IS NOT NULL);
     
     -- Populate patron_ID FK drop down
     SELECT patron_ID, CONCAT(first_name, ' ', last_name) AS 'patron_name' 
