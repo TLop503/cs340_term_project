@@ -51,7 +51,7 @@
         <form method="post" action="remGenre">
             <label>Genre:
                 <select name="Genre_ID">
-                    {% for genre in genres %}
+                    {% for genre in unused_genres %}
                     <option value="{{ genre.genre_ID }}">{{ genre.genre_ID }} {{ genre.genre_name }}</option>
                     {% endfor %}
                 </select>
