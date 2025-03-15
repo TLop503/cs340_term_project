@@ -144,22 +144,22 @@ def add_book():
         if author_ID == "" and audience == "" and publishing_date == "":
             cur.execute("INSERT INTO Books (title, synopsis, format, language) VALUES (%s, %s, %s, %s);", (title, synopsis, format, language))
         # account for NULL author_ID, audience
-        if author_ID == "" and audience == "":
+        elif author_ID == "" and audience == "":
             cur.execute("INSERT INTO Books (title, synopsis, format, language, publishing_date) VALUES (%s, %s, %s, %s, %s);", (title, synopsis, format, language, publishing_date))
         # account for NULL author_ID, publishing date
-        if author_ID == "" and publishing_date == "":
+        elif author_ID == "" and publishing_date == "":
             cur.execute("INSERT INTO Books (title, synopsis, audience, format, language) VALUES (%s, %s, %s, %s, %s);", (title, synopsis, audience, format, language))
         # account for NULL audience, publishing date
-        if audience == "" and publishing_date == "":
+        elif audience == "" and publishing_date == "":
             cur.execute("INSERT INTO Books (author_ID, title, synopsis, format, language) VALUES (%s, %s, %s, %s, %s);", (author_ID, title, synopsis, format, language))
         # account for NULL author_ID
-        if author_ID == "":
+        elif author_ID == "":
             cur.execute("INSERT INTO Books (title, synopsis, audience, format, language, publishing_date) VALUES (%s, %s, %s, %s, %s, %s);", (title, synopsis, audience, format, language, publishing_date))
         # account for NULL audience
-        if audience == "":
+        elif audience == "":
             cur.execute("INSERT INTO Books (author_ID, title, synopsis, format, language, publishing_date) VALUES (%s, %s, %s, %s, %s, %s);", (author_ID, title, synopsis, format, language, publishing_date))
         # account for NULL publishing date
-        if publishing_date == "":
+        elif publishing_date == "":
             cur.execute("INSERT INTO Books (author_ID, title, synopsis, audience, format, language) VALUES (%s, %s, %s, %s, %s, %s);", (author_ID, title, synopsis, audience, format, language))
         # no NULL inputs
         else:
@@ -186,22 +186,22 @@ def edit_book():
         if author_ID == "" and audience == "" and publishing_date == "":
             cur.execute("UPDATE Books SET title=%s, synopsis=%s, format=%s, language=%s WHERE book_ID=%s;", (title, synopsis, format, language, book_ID))
         # account for NULL author_ID, audience
-        if author_ID == "" and audience == "":
+        elif author_ID == "" and audience == "":
             cur.execute("UPDATE Books SET title=%s, synopsis=%s, format=%s, language=%s, publishing_date=%s WHERE book_ID=%s;", (title, synopsis, format, language, publishing_date, book_ID))
         # account for NULL author_ID, publishing date
-        if author_ID == "" and publishing_date == "":
+        elif author_ID == "" and publishing_date == "":
             cur.execute("UPDATE Books SET title=%s, synopsis=%s, audience=%s, format=%s, language=%s WHERE book_ID=%s;", (title, synopsis, audience, format, language, book_ID))
         # account for NULL audience, publishing date
-        if audience == "" and publishing_date == "":
+        elif audience == "" and publishing_date == "":
             cur.execute("UPDATE Books SET author_ID=%s, title=%s, synopsis=%s, format=%s, language=%s WHERE book_ID=%s;", (author_ID, title, synopsis, format, language, book_ID))
         # account for NULL author_ID
-        if author_ID == "":
+        elif author_ID == "":
             cur.execute("UPDATE Books SET title=%s, synopsis=%s, audience=%s, format=%s, language=%s, publishing_date=%s WHERE book_ID=%s;", (title, synopsis, audience, format, language, publishing_date, book_ID))
         # account for NULL audience
-        if audience == "":
+        elif audience == "":
             cur.execute("UPDATE Books SET author_ID=%s, title=%s, synopsis=%s, format=%s, language=%s, publishing_date=%s WHERE book_ID=%s;", (author_ID, title, synopsis, format, language, publishing_date, book_ID))
         # account for NULL publishing date
-        if publishing_date == "":
+        elif publishing_date == "":
             cur.execute("UPDATE Books SET author_ID=%s, title=%s, synopsis=%s, audience=%s, format=%s, language=%s WHERE book_ID=%s;", (author_ID, title, synopsis, audience, format, language, book_ID))
         # no NULL inputs
         else:
