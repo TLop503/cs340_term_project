@@ -1,7 +1,6 @@
 SET FOREIGN_KEY_CHECKS=0;
 SET AUTOCOMMIT = 0;
 
-
 -- Drop Existing Tables if They Exist
 DROP TABLE IF EXISTS Book_Genres, Checkouts, Genres, Books, Authors, Patrons;
 
@@ -63,7 +62,7 @@ CREATE OR REPLACE TABLE Book_Genres (
     FOREIGN KEY (genre_ID) REFERENCES Genres(genre_ID) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
--- Example Data for Authors
+-- Insert Authors
 INSERT INTO Authors (first_name, last_name, biography) VALUES
 ('David', 'Foster Wallace', 'An American author known for his complex and often postmodern novels.'),
 ('J.R.R.', 'Tolkien', 'An English author known for his high fantasy novels.'),
@@ -72,7 +71,7 @@ INSERT INTO Authors (first_name, last_name, biography) VALUES
 ('William', 'Shakespeare', 'An English author known for his plays and poetry.'),
 ('Bob', 'Jones', 'Local No Name CO (aspiring) author');
 
--- Example Data for Genres
+-- Insert Genres
 INSERT INTO Genres (genre_name) VALUES
 ('Plays'),
 ('Fantasy'),
@@ -83,54 +82,28 @@ INSERT INTO Genres (genre_name) VALUES
 ('Humor'),
 ('Nonfiction');
 
--- Example Data for Books
+-- Insert Books
 INSERT INTO Books (title, author_ID, synopsis, audience, language, format, publishing_date) VALUES
-('Infinite Jest', 1, 'A postmodern novel about addiction and entertainment', 'Adult', 'English', 'Paperback', '1996-02-01'),
+('Infinite Jest', (SELECT author_ID FROM Authors WHERE first_name = 'David' AND last_name = 'Foster Wallace'), 'A postmodern novel about addiction and entertainment', 'Adult', 'English', 'Paperback', '1996-02-01'),
 ('The Necronomicon', NULL, '?????????????', 'Adult', 'Latin', 'Hardcover', '1606-06-06'),
-('Brief Interviews with Hideous Men', 1, 'A collection of short stories', 'Adult', 'English', 'Paperback', '1999-05-01'),
-('The Hobbit', 2, 'A high fantasy novel about a hobbit on a quest to reclaim a treasure', 'Middle-grade', 'English', 'Paperback', '1937-09-21'),
-('The Lord of the Rings', 2, 'A high fantasy novel about a quest to destroy a powerful ring', 'Adult', 'English', 'Paperback', '1954-07-29'),
-('1984', 3, 'A dystopian novel about a totalitarian society', 'Adult', 'English', 'Paperback', '1949-06-08'),
-('What if?', 4, 'A collection of scientific answers to absurd hypothetical questions', 'Middle-Grade', 'English', 'Paperback', '2014-09-02'),
-('Hamlet', 5, 'A play about a prince who seeks revenge for his father', 'Adult', 'Ye Olde English', 'Paperback', '1603-01-01');
+('Brief Interviews with Hideous Men', (SELECT author_ID FROM Authors WHERE first_name = 'David' AND last_name = 'Foster Wallace'), 'A collection of short stories', 'Adult', 'English', 'Paperback', '1999-05-01'),
+('The Hobbit', (SELECT author_ID FROM Authors WHERE first_name = 'J.R.R.' AND last_name = 'Tolkien'), 'A high fantasy novel about a hobbit on a quest to reclaim a treasure', 'Middle-grade', 'English', 'Paperback', '1937-09-21'),
+('The Lord of the Rings', (SELECT author_ID FROM Authors WHERE first_name = 'J.R.R.' AND last_name = 'Tolkien'), 'A high fantasy novel about a quest to destroy a powerful ring', 'Adult', 'English', 'Paperback', '1954-07-29'),
+('1984', (SELECT author_ID FROM Authors WHERE first_name = 'George' AND last_name = 'Orwell'), 'A dystopian novel about a totalitarian society', 'Adult', 'English', 'Paperback', '1949-06-08'),
+('What if?', (SELECT author_ID FROM Authors WHERE first_name = 'Randall' AND last_name = 'Munroe'), 'A collection of scientific answers to absurd hypothetical questions', 'Middle-Grade', 'English', 'Paperback', '2014-09-02'),
+('Hamlet', (SELECT author_ID FROM Authors WHERE first_name = 'Bob' AND last_name = 'Jones'), 'A 100% Original play about a prince who seeks revenge for his father', 'Adult', 'Ye Olde English', 'Paperback', '1603-01-01');
 
--- Example Data for Patrons
-INSERT INTO Patrons (first_name, last_name, date_of_birth, email, phone_number) VALUES
-('Alice', 'Smith', '1990-01-01', 'alice@alice.com', '555-555-5555'),
-('Bob', 'Jones', '1980-02-02', 'bob@bob.com', '555-555-5555'),
-('Eve', 'Johnson', '1970-03-03', 'eve@nsa.gov', '555-555-5555'),
-('Mallory', 'Brown', '1960-04-04', 'mallory@localhost', '555-555-5555');
-
-
--- Example Book to Genre Mappings
--- Format: (book_ID, genre_ID)
+-- Insert Book-Genre Relations
 INSERT INTO Book_Genres (book_ID, genre_ID) VALUES
-(1, 5),  -- Infinite Jest -> Postmodern
-(1, 7),  -- Infinite Jest -> Humor
-(2, 6),  -- The Pale King -> Surreal
-(3, 6),  -- Brief Interviews with Hideous Men -> Surreal
-(4, 2),  -- The Hobbit -> Fantasy
-(5, 2),  -- The Lord of the Rings -> Fantasy
-(6, 3),  -- 1984 -> Dystopian
-(7, 8), -- What if? -> Nonfiction
-(8, 1); -- Hamlet -> Plays
-
--- a few checkouts
-INSERT INTO Checkouts (book_ID, patron_ID, checkout_date, due_date, is_returned) VALUES
-(4, 1, '2025-01-01', '2025-01-07', 1),
-(1, 1, '2025-02-01', '2025-02-15', 0),
-(3, 3, '2025-02-03', '2025-02-17', 0),
-(4, 4, '2025-02-04', '2025-02-18', 0),
-(8, 4, '2025-02-04', '2025-02-18', 0),
-(2, 4, '2025-02-04', '2025-02-18', 0);
-
--- Show our work!
-SELECT * FROM Authors LIMIT 5;
-SELECT * FROM Genres LIMIT 5;
-SELECT * FROM Books LIMIT 5;
-SELECT * FROM Patrons LIMIT 5;
-SELECT * FROM Checkouts LIMIT 5;
-SELECT * FROM Book_Genres LIMIT 5;
+((SELECT book_ID FROM Books WHERE title = 'Infinite Jest'), (SELECT genre_ID FROM Genres WHERE genre_name = 'Postmodern')),
+((SELECT book_ID FROM Books WHERE title = 'Infinite Jest'), (SELECT genre_ID FROM Genres WHERE genre_name = 'Humor')),
+((SELECT book_ID FROM Books WHERE title = 'The Necronomicon'), (SELECT genre_ID FROM Genres WHERE genre_name = 'Surreal')),
+((SELECT book_ID FROM Books WHERE title = 'Brief Interviews with Hideous Men'), (SELECT genre_ID FROM Genres WHERE genre_name = 'Surreal')),
+((SELECT book_ID FROM Books WHERE title = 'The Hobbit'), (SELECT genre_ID FROM Genres WHERE genre_name = 'Fantasy')),
+((SELECT book_ID FROM Books WHERE title = 'The Lord of the Rings'), (SELECT genre_ID FROM Genres WHERE genre_name = 'Fantasy')),
+((SELECT book_ID FROM Books WHERE title = '1984'), (SELECT genre_ID FROM Genres WHERE genre_name = 'Dystopian')),
+((SELECT book_ID FROM Books WHERE title = 'What if?'), (SELECT genre_ID FROM Genres WHERE genre_name = 'Nonfiction')),
+((SELECT book_ID FROM Books WHERE title = 'Hamlet'), (SELECT genre_ID FROM Genres WHERE genre_name = 'Plays'));
 
 SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
