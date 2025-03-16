@@ -91,7 +91,7 @@ INSERT INTO Books (title, author_ID, synopsis, audience, language, format, publi
 ('The Lord of the Rings', (SELECT author_ID FROM Authors WHERE first_name = 'J.R.R.' AND last_name = 'Tolkien'), 'A high fantasy novel about a quest to destroy a powerful ring', 'Adult', 'English', 'Paperback', '1954-07-29'),
 ('1984', (SELECT author_ID FROM Authors WHERE first_name = 'George' AND last_name = 'Orwell'), 'A dystopian novel about a totalitarian society', 'Adult', 'English', 'Paperback', '1949-06-08'),
 ('What if?', (SELECT author_ID FROM Authors WHERE first_name = 'Randall' AND last_name = 'Munroe'), 'A collection of scientific answers to absurd hypothetical questions', 'Middle-Grade', 'English', 'Paperback', '2014-09-02'),
-('Hamlet', (SELECT author_ID FROM Authors WHERE first_name = 'Bob' AND last_name = 'Jones'), 'A 100% Original play about a prince who seeks revenge for his father', 'Adult', 'Ye Olde English', 'Paperback', '1603-01-01');
+('Hamlet', (SELECT author_ID FROM Authors WHERE first_name = 'Bob' AND last_name = 'Jones'), 'A 100% Original play about a prince who seeks revenge for his father', 'Adult', 'Ye Olde English', 'Paperback', '2025-01-23');
 
 -- Insert Book-Genre Relations
 INSERT INTO Book_Genres (book_ID, genre_ID) VALUES
@@ -104,6 +104,24 @@ INSERT INTO Book_Genres (book_ID, genre_ID) VALUES
 ((SELECT book_ID FROM Books WHERE title = '1984'), (SELECT genre_ID FROM Genres WHERE genre_name = 'Dystopian')),
 ((SELECT book_ID FROM Books WHERE title = 'What if?'), (SELECT genre_ID FROM Genres WHERE genre_name = 'Nonfiction')),
 ((SELECT book_ID FROM Books WHERE title = 'Hamlet'), (SELECT genre_ID FROM Genres WHERE genre_name = 'Plays'));
+
+-- Example Data for Patrons
+INSERT INTO Patrons (first_name, last_name, date_of_birth, email, phone_number) VALUES
+('Alice', 'Smith', '1990-01-01', 'alice@alice.com', '555-555-5555'),
+('Bob', 'Jones', '1980-02-02', 'bob@bob.com', '555-555-5555'),
+('Eve', 'Johnson', '1970-03-03', 'eve@nsa.gov', '555-555-5555'),
+('Mallory', 'Brown', '1960-04-04', 'mallory@localhost', '555-555-5555');
+
+-- Example Data for Checkouts
+INSERT INTO Checkouts (book_ID, patron_ID, checkout_date, due_date, is_returned) VALUES
+((SELECT book_ID FROM Books WHERE title = 'The Hobbit'), 1, '2025-01-01', '2025-01-07', 1),
+((SELECT book_ID FROM Books WHERE title = 'Infinite Jest'), 1, '2025-02-01', '2025-02-15', 0),
+((SELECT book_ID FROM Books WHERE title = 'Brief Interviews with Hideous Men'), 3, '2025-02-03', '2025-02-17', 0),
+((SELECT book_ID FROM Books WHERE title = 'The Hobbit'), 4, '2025-02-04', '2025-02-18', 0),
+((SELECT book_ID FROM Books WHERE title = 'Hamlet'), 4, '2025-02-04', '2025-02-18', 0),
+((SELECT book_ID FROM Books WHERE title = 'The Necronomicon'), 4, '2025-02-04', '2025-02-18', 0);
+
+
 
 SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
