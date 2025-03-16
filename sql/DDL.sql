@@ -114,12 +114,12 @@ INSERT INTO Patrons (first_name, last_name, date_of_birth, email, phone_number) 
 
 -- Example Data for Checkouts
 INSERT INTO Checkouts (book_ID, patron_ID, checkout_date, due_date, is_returned) VALUES
-((SELECT book_ID FROM Books WHERE title = 'The Hobbit'), 1, '2025-01-01', '2025-01-07', 1),
-((SELECT book_ID FROM Books WHERE title = 'Infinite Jest'), 1, '2025-02-01', '2025-02-15', 0),
-((SELECT book_ID FROM Books WHERE title = 'Brief Interviews with Hideous Men'), 3, '2025-02-03', '2025-02-17', 0),
-((SELECT book_ID FROM Books WHERE title = 'The Hobbit'), 4, '2025-02-04', '2025-02-18', 0),
-((SELECT book_ID FROM Books WHERE title = 'Hamlet'), 4, '2025-02-04', '2025-02-18', 0),
-((SELECT book_ID FROM Books WHERE title = 'The Necronomicon'), 4, '2025-02-04', '2025-02-18', 0);
+((SELECT book_ID FROM Books WHERE title = 'The Hobbit'), (SELECT patron_ID FROM Patrons WHERE first_name = 'Alice'), '2025-01-01', '2025-01-07', 1),
+((SELECT book_ID FROM Books WHERE title = 'Infinite Jest'), (SELECT patron_ID FROM Patrons WHERE first_name = 'Alice'), '2025-02-01', '2025-02-15', 0),
+((SELECT book_ID FROM Books WHERE title = 'Brief Interviews with Hideous Men'), (SELECT patron_ID FROM Patrons WHERE first_name = 'Eve'), '2025-02-03', '2025-02-17', 0),
+((SELECT book_ID FROM Books WHERE title = 'The Hobbit'), (SELECT patron_ID FROM Patrons WHERE first_name = 'Mallory'), '2025-02-04', '2025-02-18', 0),
+((SELECT book_ID FROM Books WHERE title = 'Hamlet'), (SELECT patron_ID FROM Patrons WHERE first_name = 'Mallory'), '2025-02-04', '2025-02-18', 0),
+((SELECT book_ID FROM Books WHERE title = 'The Necronomicon'), (SELECT patron_ID FROM Patrons WHERE first_name = 'Mallory'), '2025-02-04', '2025-02-18', 0);
 
 
 
