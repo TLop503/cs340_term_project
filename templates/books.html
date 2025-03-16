@@ -4,12 +4,14 @@
         <title>Books</title>
     </head>
     <body>
-
+        <!-- Nav bar from Template -->
         {% include 'base.html.jinja' %}
         {% block content %}
         <h1>Book Inventory</h1>
         <p>Here you can update our inventory of books, add new titles, or delete retired editions.</p>
 
+        
+        <!-- Books Table -->
         <h2>Books Table</h2>
         <table border="2">
             <thead>
@@ -40,12 +42,15 @@
             </tbody>
         </table>
 
+        
+        <!-- Add Books Form -->
         <h2>Add Book</h2>
         <form method="post" action="addBook">
             <label>Title: <input type="text" name="title" required></label><br>
             <label>Author: (can be NULL) 
                 <select name="author_ID">
                     <option value="">Unknown</option>
+                    <!-- Populate author_ID drop down -->
                     {% for author in authors %}
                     <option value="{{ author.author_ID }}">{{ author.first_name }} {{ author.last_name }}</option>
                     {% endfor %}
@@ -77,10 +82,12 @@
         </form>
         <hr><br>
 
-        <h2>Update Book</h2>
+        <!-- Edit Books Form-->
+        <h2>Edit Book</h2>
         <form method="post" action="editBook">
             <label>Book:
                 <select name="book_ID">
+                    <!-- Populate book_ID drop down -->
                     {% for book in books %}
                     <option value="{{ book.book_ID }}">{{ book.book_ID }} {{ book.title }}</option>
                     {% endfor %}
@@ -90,6 +97,7 @@
             <label>Author: (can be NULL) 
                 <select name="author_ID">
                     <option value="">Unknown</option>
+                    <!-- Populate author_ID drop down -->
                     {% for author in authors %}
                     <option value="{{ author.author_ID }}">{{ author.author_ID }} {{ author.first_name }} {{ author.last_name }}</option>
                     {% endfor %}
@@ -117,15 +125,16 @@
             </label><br>
             <label>Language: <input type="text" name="language"></label><br>
             <label>Publishing Date: <input type="date" name="publishing_date"></label><br>
-            <button type="submit">Update Book</button>
+            <button type="submit">Edit Book</button>
         </form>
         <hr><br>
 
-
+        <!-- Delete Books Form -->
         <h2>Delete Book</h2>
         <form method="post" action="remBook">            
             <label>Book:
                 <select name="book_ID">
+                    <!-- Populate book_ID drop down -->
                     {% for book in books %}
                     <option value="{{ book.book_ID }}">{{ book.book_ID }} {{ book.title }}</option>
                     {% endfor %}

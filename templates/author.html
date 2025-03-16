@@ -4,6 +4,7 @@
         <title>Authors</title>
     </head>
     <body>
+        <!-- Nav bar from Template -->
         {% include 'base.html.jinja' %}
         {% block content %}
         <h1>Author Info</h1>
@@ -32,6 +33,7 @@
             </tbody>
         </table>
 
+        <!-- Add Author Form -->
         <h2>Add Author</h2>
         <form method="post" action="addAuthor">
             <label>First Name: <input type="text" name="first_name" required></label><br>
@@ -41,10 +43,12 @@
         </form>
         <hr><br>
 
+        <!-- Edt Author Form -->
         <h2>Edit Author</h2>
         <form method="post" action="editAuthor">
             <label>Author:
                 <select name="author_ID">
+                    <!-- Populate author_ID drop down -->
                     {% for author in authors %}
                     <option value="{{ author.author_ID }}">{{ author.author_ID }} {{ author.first_name }} {{ author.last_name }}</option>
                     {% endfor %}
@@ -55,13 +59,15 @@
             <label>Biography: <textarea name="new_biography"></textarea></label><br>
             <button type="submit">Edit Author</button>
         </form>
-        <hr><br> <!--what is this-->
+        <hr><br>
 
+        <!-- Add Author Form -->
         <h2>Delete Author</h2>
         <form method="post" action="remAuthor">
             <label>Author:
                 <select name="author_ID">
                     {% for author in authors %}
+                    <!-- Populate author_ID drop down -->
                     <option value="{{ author.author_ID }}">{{ author.author_ID }} {{ author.first_name }} {{ author.last_name }}</option>
                     {% endfor %}
                 </select>

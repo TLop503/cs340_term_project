@@ -4,11 +4,13 @@
         <title>Genres</title>
     </head>
     <body>
+        <!-- Nav bar from Template -->
         {% include 'base.html.jinja' %}
         {% block content %}
         <h1>Genre Info</h1>
         <p>Here you can view and manage genres for our books</p>
 
+        <!-- Genres Table -->
         <h2>Genres Tables</h2>
         <table border="2">
             <thead>
@@ -25,6 +27,7 @@
             {% endfor %}
         </table>
 
+        <!-- Add Genres Form -->
         <h2>Add Genre</h2>
         <form method="post" action="addGenre">
             <label>Name: <input type="text" name="genre_name" required></label><br>
@@ -32,10 +35,12 @@
         </form>
         <hr><br>
 
+        <!-- Edit Genres Form -->
         <h2>Edit Genre</h2>
         <form method="post" action="editGenre">
             <label>Genre:
                 <select name="Genre_ID">
+                    <!-- Populate genre_ID drop down -->
                     {% for genre in genres %}
                     <option value="{{ genre.genre_ID }}">{{ genre.genre_ID }} {{ genre.genre_name }}</option>
                     {% endfor %}
@@ -46,11 +51,13 @@
         </form>
         <hr><br>
 
+        <!-- Delete Genres Form -->
         <h2>Delete Genre</h2>
         <p>Reminder: You cannot delete a genre that is currently linked to a book</p>
         <form method="post" action="remGenre">
             <label>Genre:
                 <select name="Genre_ID">
+                    <!-- Populate genre_ID drop down -->
                     {% for genre in unused_genres %}
                     <option value="{{ genre.genre_ID }}">{{ genre.genre_ID }} {{ genre.genre_name }}</option>
                     {% endfor %}

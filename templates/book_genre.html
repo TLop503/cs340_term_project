@@ -4,11 +4,13 @@
         <title>Book Genres</title>
     </head>
     <body>
+        <!-- Nav bar from Template -->
         {% include 'base.html.jinja' %}
         {% block content %}
         <h1>Book Genres</h1>
         <p>Here you can view and add mappings between books and genres.</p>
 
+        <!-- Book_Gernes Table -->
         <h2>Book Genres Table</h2>
         <table border="2">
             <thead>
@@ -27,13 +29,14 @@
                 </tr>
                 {% endfor %}
             </tbody>
-            <!-- Rows for book-genre mappings will go here -->
         </table>
 
+        <!-- Add Book_Gernes Form -->
         <h2>Add Book Genre</h2>
         <form method="post" action="addBookGenre">
             <label>Book Title: 
                 <select name="book_ID">
+                    <!-- Populate book_ID drop down -->
                     {% for book in books %}
                     <option value="{{ book.book_ID}}">{{ book.book_ID}} {{ book.title }}</option>
                     {% endfor %}
@@ -41,6 +44,7 @@
             </label><br>
             <label>Genre Name: 
                 <select name="genre_ID">
+                    <!-- Populate genre_ID drop down -->
                     {% for genre in genres %}
                     <option value="{{ genre.genre_ID}}">{{ genre.genre_ID}} {{genre.genre_name}}</option>
                     {% endfor %}
@@ -49,10 +53,12 @@
             <button type="submit">Add Mapping</button>
         </form>
 
-        <h2>Update Book Genre</h2>
+        <!-- Edit Book_Gernes Form -->
+        <h2>Edit Book Genre</h2>
         <form method="post" action="editBookGenre">
             <label>Book Genre: 
                 <select name="book_genre_ID">
+                    <!-- Populate book_genre_ID drop down -->
                     {% for book_genre in book_genres %}
                         <option value="{{ book_genre.book_genre_ID}}">{{ book_genre.book_genre_ID}} {{ book_genre.book_title}}: {{book_genre.genre_name}}</option>
                     {% endfor %}
@@ -60,6 +66,7 @@
             </label><br>
             <label>Book Title: 
                 <select name="book_ID">
+                    <!-- Populate book_ID drop down -->
                     {% for book in books %}
                     <option value="{{ book.book_ID}}">{{ book.book_ID}} {{ book.title }}</option>
                     {% endfor %}
@@ -67,6 +74,7 @@
             </label><br>
             <label>Genre Name: 
                 <select name="genre_ID">
+                    <!-- Populate genre_ID drop down -->
                     {% for genre in genres %}
                     <option value="{{ genre.genre_ID}}">{{ genre.genre_ID}} {{genre.genre_name}}</option>
                     {% endfor %}
@@ -75,10 +83,12 @@
             <button type="submit">Edit Book Genre</button>
         </form>
 
+        <!-- Delete Book_Gernes Form -->
         <h2>Delete Book Genre</h2>
         <form method="post" action="remBookGenre">
             <label>Book Genre:
                 <select name="book_genre_ID">
+                    <!-- Populate book_genre_ID drop down -->
                     {% for book_genre in book_genres %}
                     <option value="{{ book_genre.book_genre_ID}}">{{ book_genre.book_genre_ID}} {{ book_genre.book_title}}: {{book_genre.genre_name}}</option>
                     {% endfor %}
