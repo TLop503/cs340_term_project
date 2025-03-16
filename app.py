@@ -42,7 +42,8 @@ def checkout():
             LEFT JOIN Books ON Books.book_ID = Checkouts.book_ID \
             LEFT JOIN Patrons ON Patrons.patron_ID = Checkouts.patron_ID \
             WHERE is_returned = 0"
-
+    
+    # Query for past checkouts
     past_checkouts_query = "SELECT checkout_ID, title AS 'book_title', \
             CONCAT(first_name, ' ', last_name) AS 'patron_name', \
             checkout_date, due_date, is_returned FROM Checkouts \
@@ -78,9 +79,11 @@ def checkout():
 
     return render_template('checkout.html', active_checkouts=active_checkouts_results, past_checkouts=past_checkouts_results, books=books_results, patrons=patrons_results)
 
+# Add/INSERT Checkouts
 @app.route('/addCheckout', methods=['POST'])
 def add_checkout():
     if request.method == 'POST':
+        # Get input from form
         print(request.form)
         book_ID = request.form['book_ID']
         patron_ID = request.form['patron_ID']
@@ -88,17 +91,21 @@ def add_checkout():
         due_date = request.form['due_date']
         cur = mysql.connection.cursor()
 
+        # Execute INSERT
         cur.execute("INSERT INTO Checkouts (book_ID, patron_ID, checkout_date, due_date) VALUES (%s, %s, %s, %s);", (book_ID, patron_ID, checkout_date, due_date))
         mysql.connection.commit()
         cur.close()
         return redirect(url_for('checkout'))
     
+# Edit/Update Checkouts
 @app.route('/editCheckout', methods=['POST'])
 def edit_checkout():
     if request.method == 'POST':
+        # Get input from form
         checkout_ID = request.form['checkout_ID']
         cur = mysql.connection.cursor()
 
+        # Execute UPDATE
         cur.execute("UPDATE Checkouts SET is_returned=1 WHERE checkout_ID=%s;", (checkout_ID,))
         mysql.connection.commit()
         cur.close()
@@ -127,11 +134,11 @@ def books():
     
     return render_template('books.html', books=books_results, authors=authors_results)
 
-
-
+# Add/INSERT Books
 @app.route('/addBook', methods=['POST'])
 def add_book():
     if request.method == 'POST':
+        # Get input from form
         author_ID = request.form['author_ID']
         title = request.form['title']
         synopsis = request.form['synopsis']
@@ -170,9 +177,11 @@ def add_book():
         cur.close()
         return redirect(url_for('books'))
 
+# Edit/UPDATE Books
 @app.route('/editBook', methods=['POST'])
 def edit_book():
     if request.method == 'POST':
+        # Get input from form
         book_ID = request.form['book_ID']
         author_ID = request.form['author_ID']
         title = request.form['title']
@@ -211,12 +220,15 @@ def edit_book():
         mysql.connection.commit()
         cur.close()
         return redirect(url_for('books'))
-    
+
+# DELETE Books
 @app.route('/remBook', methods=['POST'])
 def rem_book():
     if request.method == 'POST':
+        # Get input from form
         book_ID = request.form['book_ID']
         cur = mysql.connection.cursor()
+        # Execute Delete
         cur.execute("DELETE FROM Books WHERE book_ID=%s;", (book_ID,))
         mysql.connection.commit()
         cur.close()
@@ -226,7 +238,10 @@ def rem_book():
 # Genres
 @app.route('/genre')
 def genre():
+    # query for genres table
     all_genres_query = 'SELECT * FROM Genres'
+
+    # quary for genres drop down
     unused_genres_query = 'SELECT * FROM Genres WHERE genre_ID NOT IN \
             (SELECT genre_ID FROM Book_Genres)'
 
@@ -242,32 +257,44 @@ def genre():
 
     return render_template('genre.html', genres=all_genres_results, unused_genres=unused_genres_results)
 
+# Add/INSERT Genres
 @app.route('/addGenre', methods=['POST'])
 def add_genre():
     if request.method == 'POST':
+        # Get input from form
         genre_name = request.form['genre_name']
         cur = mysql.connection.cursor()
+
+        # Execute INSERT
         cur.execute("INSERT INTO Genres (genre_name) VALUES (%s);", (genre_name,))
         mysql.connection.commit() # ensure our changes save
         cur.close()
         return redirect(url_for('genre')) # send user back to genre page
     
+# DELETE Genres
 @app.route('/remGenre', methods=['POST'])
 def rem_genre():
     if request.method == 'POST':
+        # Get input from form
         genre_id = request.form['Genre_ID']
         cur = mysql.connection.cursor()
+
+        # Execute DELETE
         cur.execute("DELETE FROM Genres WHERE genre_id=%s;", (genre_id,))
         mysql.connection.commit() # ensure our changes save
         cur.close()
     return redirect(url_for('genre')) # send user back to genre page
 
+# edit/UPDATE Genres
 @app.route('/editGenre', methods=['POST'])
 def edit_genre():
     if request.method == 'POST':
+        # Get input from form
         genre_id = request.form['Genre_ID']
         new_genre_name = request.form['new_genre_name']
         cur = mysql.connection.cursor()
+
+        # Execute UPDATE
         cur.execute("UPDATE Genres SET genre_name=%s WHERE genre_id=%s;", (new_genre_name, genre_id))
         mysql.connection.commit() # ensure our changes save
         cur.close()
@@ -283,9 +310,11 @@ def patron():
     results = c.fetchall()
     return render_template('patron.html', patrons=results)
 
+# add/INSERT Patrons
 @app.route('/addPatron', methods=['POST'])
 def add_patron():
     if request.method == 'POST':
+        # Get input from form
         first_name = request.form['first_name']
         last_name = request.form['last_name']
         date_of_birth = request.form['date_of_birth']
@@ -310,9 +339,11 @@ def add_patron():
         cur.close()
         return redirect(url_for('patron'))
 
+# edit/UPDATE Patrons
 @app.route('/editPatron', methods=['POST'])
 def edit_patron():
     if request.method == 'POST':
+        # Get input from form
         patron_ID = request.form['patron_ID']
         first_name = request.form['first_name']
         last_name = request.form['last_name']
@@ -338,11 +369,15 @@ def edit_patron():
         cur.close()
     return redirect(url_for('patron')) # send user back to patrons page
 
+# DELETE Patrons
 @app.route('/remPatron', methods=['POST'])
 def rem_patron():
     if request.method == 'POST':
+        # Get input from form
         patron_ID = request.form['patron_ID']
         cur = mysql.connection.cursor()
+
+        # Execute DELETE
         cur.execute("DELETE FROM Patrons WHERE patron_ID=%s;", (patron_ID,))
         mysql.connection.commit() # ensure our changes save
         cur.close()
@@ -358,9 +393,11 @@ def author():
     results = c.fetchall()
     return render_template('author.html', authors=results)
 
+# add/INSERT Authors
 @app.route('/addAuthor', methods=['POST'])
 def add_author():
     if request.method == 'POST':
+        # Get input from form
         first_name = request.form['first_name']
         last_name = request.form['last_name']
         biography = request.form['biography']
@@ -378,19 +415,25 @@ def add_author():
         cur.close()
         return redirect(url_for('author')) # send user back to author page
     
+# DELTE Authors
 @app.route('/remAuthor', methods=['POST'])
 def rem_author():
     if request.method == 'POST':
+        # Get input from form
         author_id = request.form['author_ID']
         cur = mysql.connection.cursor()
+
+        # Execute DELETE
         cur.execute("DELETE FROM Authors WHERE author_ID=%s;", (author_id,))
         mysql.connection.commit() # ensure our changes save
         cur.close()
     return redirect(url_for('author')) # send user back to author page
 
+# edit/UPDATE Authors
 @app.route('/editAuthor', methods=['POST'])
 def edit_author():
     if request.method == 'POST':
+        # Get input from form
         author_id = request.form['author_ID']
         new_first_name = request.form['new_first_name']
         new_last_name = request.form['new_last_name']
@@ -439,12 +482,15 @@ def book_genre():
 
     return render_template('book_genre.html', book_genres=book_genres_results, books=books_results, genres=genres_results)
 
+# add/INSERT Book_Genres
 @app.route('/addBookGenre', methods=['POST'])
 def add_book_genre():
     if request.method == 'POST':
+        # Get input from form
         book_ID = request.form['book_ID']
         genre_ID = request.form['genre_ID']
         
+        # Execute INSERT
         cur = mysql.connection.cursor()
         cur.execute("INSERT INTO Book_Genres (book_ID, genre_ID) VALUES (%s, %s);", (book_ID, genre_ID))
 
@@ -452,13 +498,16 @@ def add_book_genre():
         cur.close()
         return redirect(url_for('book_genre'))
 
+# edit/UPDATE Book_Genres
 @app.route('/editBookGenre', methods=['POST'])
 def edit_book_genre():
     if request.method == 'POST':
+        # Get input from form
         book_genre_ID = request.form['book_genre_ID']
         book_ID = request.form['book_ID']
         genre_ID = request.form['genre_ID']
         
+        # Execute UPDATE
         cur = mysql.connection.cursor()
         cur.execute("UPDATE Book_Genres SET book_ID=%s, genre_ID=%s WHERE book_genre_ID=%s;", (book_ID, genre_ID, book_genre_ID,))
 
@@ -466,10 +515,14 @@ def edit_book_genre():
         cur.close()
         return redirect(url_for('book_genre'))
 
+# DELETE Book_Genres
 @app.route('/remBookGenre', methods=['POST'])
 def rem_book_genre():
     if request.method == 'POST':
+        # Get input from form
         book_genre_ID = request.form['book_genre_ID']
+
+        # Execute DELETE
         cur = mysql.connection.cursor()
         cur.execute("DELETE FROM Book_Genres WHERE book_genre_ID=%s;", (book_genre_ID,))
 

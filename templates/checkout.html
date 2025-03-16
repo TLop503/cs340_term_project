@@ -4,12 +4,15 @@
         <title>Checkouts</title>
     </head>
     <body>
+        <!-- Nav bar from Template -->
         {% include 'base.html.jinja' %}
         {% block content %}
         <h1>Checkout History</h1>
         <p>Here you can do lend books to patrons or accept them upon return</p>
 
         <h2>Checkouts Tables</h2>
+        
+        <!-- Active Checkouts Table -->
         <h3>Active Checkouts</h3>
         <table border="2">
             <thead>
@@ -35,6 +38,7 @@
                 {% endfor %}
         </table>
 
+        <!-- Returned Checkouts Table -->
         <h3>Past Checkouts</h3>
         <table border="2">
             <thead>
@@ -61,11 +65,13 @@
             </tbody>
         </table>
 
+        <!-- Add Checkouts Form -->
         <h2>Add Checkout:</h2>
         <p>Note that checkouts are non-deletable transactions</p>
         <form method="post" action="addCheckout">
             <label>Book Title: 
                 <select name="book_ID">
+                    <!-- Populate book_ID drop down -->
                     {% for book in books %}
                     <option value="{{ book.book_ID}}">{{ book.book_ID}} {{ book.title }}</option>
                     {% endfor %}
@@ -73,6 +79,7 @@
             </label><br>
             <label>Patron Name: 
                 <select name="patron_ID">
+                    <!-- Populate patron_ID drop down -->
                     {% for patron in patrons %}
                     <option value="{{ patron.patron_ID}}">{{ patron.patron_ID }} {{ patron.patron_name }}</option>
                     {% endfor %}
@@ -84,11 +91,13 @@
         </form>
         <hr><br>
 
+        <!-- Mark Checkouts as Returned Form -->
         <h2>Mark Book as Returned</h2>
         <p>This marks a currently checked out book as having been returned. This action is irreversible</p>
         <form method="post" action="editCheckout">
             <label>Checkout: 
                 <select name="checkout_ID">
+                    <!-- Populate checkout_ID drop down -->
                     {% for checkout in active_checkouts %}
                     <option value="{{ checkout.checkout_ID}}">{{ checkout.checkout_ID}} {{ checkout.patron_name}}: {{ checkout.book_title}}</option>
                     {% endfor %}

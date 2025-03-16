@@ -4,6 +4,7 @@
         <title>Patrons</title>
     </head>
     <body>
+        <!-- Nav bar from Template -->
         {% include 'base.html.jinja' %}
         {% block content %}
         <h1>Patron Info</h1>
@@ -36,6 +37,7 @@
             </tbody>
         </table>
 
+        <!-- Add Patron Form-->
         <h2>Add Patron</h2>
         <form method="post" action="addPatron">
             <label>First Name: <input type="text" name="first_name" required></label><br>
@@ -47,10 +49,13 @@
         </form>
         <hr><br>
         
+        
+        <!-- Edit Patron Form-->
         <h2>Edit Patron</h2>
         <form method="post" action="editPatron">
             <label>Patron:
                 <select name="patron_ID">
+                    <!-- Populate patron_ID drop down -->
                     {% for patron in patrons %}
                     <option value="{{ patron.patron_ID}}">{{ patron.patron_ID }} {{ patron.first_name }} {{ patron.last_name}}</option>
                     {% endfor %}
@@ -65,10 +70,12 @@
         </form>
         <hr><br>
 
+        <!-- Delete Patron Form -->
         <h2>Delete Patron</h2>
         <form method="post" action="remPatron">
             <label>Patron:
                 <select name="patron_ID">
+                    <!-- Populate patron_ID drop down -->
                     {% for patron in patrons %}
                     <option value="{{ patron.patron_ID}}">{{ patron.patron_ID }} {{ patron.first_name }} {{ patron.last_name}}</option>
                     {% endfor %}
