@@ -28,13 +28,13 @@
     SELECT DISTINCT author_ID, first_name, last_name FROM Authors;
 
     -- CREATE
-    -- Books.author_ID is a NULLable relationship
+    -- Books.author_ID is a NULLable FK relationship
     INSERT INTO Books (author_ID, title, synopsis, audience, format, language, publishing_date) 
     VALUES (:author_ID_input, :title_input, :synopsis_input, :audience_input, 
         :format_input, :language_input, :publishing_date_input);
 
     -- UPDATE
-    -- Books.author_ID is a NULLable relationship
+    -- Books.author_ID is a NULLable FK relationship
     UPDATE Books SET author_ID=:author_ID_input, title=:title_input, 
             synopsis=:synopsis_input, audience=:audience_input, format=:format_input, 
             language=:language_input, publishing_date=:publishing_date_input 
@@ -62,12 +62,12 @@
         VALUES (:book_ID_input, :genre_ID_input);
 
     -- UPDATE
-    -- Update M:M
+    -- Update M:N
     UPDATE Book_Genres SET book_ID=:book_ID_input, genre_ID=:genre_ID_input 
         WHERE book_genre_ID=:book_genre_ID_input;
 
     -- DELETE
-    -- Delete M:M
+    -- Delete M:N
     DELETE FROM Book_Genres WHERE book_genre_ID=:book_genre_ID_input;
 
 
@@ -81,7 +81,7 @@
         LEFT JOIN Patrons ON Patrons.patron_ID = Checkouts.patron_ID
         WHERE is_returned = 0;
 
-        -- returned books
+        -- Returned books
     SELECT checkout_ID, title AS 'book_title', CONCAT(first_name, ' ', last_name) 
             AS 'patron_name', checkout_date, due_date, is_returned 
         FROM Checkouts
